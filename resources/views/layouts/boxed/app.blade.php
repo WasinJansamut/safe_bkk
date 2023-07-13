@@ -50,49 +50,51 @@
 
 </head>
 
-<body class="   boxed">
+<body class="boxed">
     <div class="boxed-inner">
         <!-- loader Start -->
         <div id="loading">
-            <div class="loader simple-loader">
-                <div class="loader-body"></div>
+            <div class="loader simple-loader" style="margin-top: -32px">
+                <div class="loader-body d-flex justify-content-center align-items-center">
+                    <img src="{{ asset('assets/images/loader.gif') }}" class="rounded-circle" width="400">
+                </div>
             </div>
         </div>
         <!-- loader END -->
         <span class="screen-darken"></span>
-        <main class="main-content">
-            <!--Nav Start-->
-            @include('layouts.boxed.header')
-            <!--Nav End-->
+        {{-- <main class="main-content"> --}}
+        <!--Nav Start-->
+        @include('layouts.boxed.header')
+        <!--Nav End-->
 
-            @yield('content')
+        @yield('content')
 
-            <!-- Footer Section Start -->
-            <footer class="footer">
-                <div class="footer-body">
-                    <ul class="left-panel list-inline mb-0 p-0">
-                        <li class="list-inline-item">
-                            <a href="../dashboard/extra/privacy-policy.html">
-                                Privacy Policy
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="../dashboard/extra/terms-of-service.html">
-                                Terms of Use
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="right-panel">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        SAFE BKK
-                    </div>
+        <!-- Footer Section Start -->
+        <footer class="footer">
+            <div class="footer-body">
+                <ul class="left-panel list-inline mb-0 p-0">
+                    <li class="list-inline-item">
+                        <a href="../dashboard/extra/privacy-policy.html">
+                            นโยบายความเป็นส่วนตัว
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="../dashboard/extra/terms-of-service.html">
+                            ข้อกำหนดการใช้งาน
+                        </a>
+                    </li>
+                </ul>
+                <div class="right-panel">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    SAFE BKK
                 </div>
-            </footer>
-            <!-- Footer Section End -->
-        </main>
+            </div>
+        </footer>
+        <!-- Footer Section End -->
+        {{-- </main> --}}
         <!-- Wrapper End-->
     </div>
 

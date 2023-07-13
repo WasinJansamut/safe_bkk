@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 
 /*
@@ -21,6 +22,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/risk_point', [HomeController::class, 'risk_point'])->name('risk_point');
+    Route::get('/working_group', [HomeController::class, 'working_group'])->name('working_group');
     Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
 });
