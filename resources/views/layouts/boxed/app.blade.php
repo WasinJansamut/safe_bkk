@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="utf-8">
@@ -14,7 +14,6 @@
 
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="{{ asset('assets/css/core/libs.min.css') }}" />
-
 
     <!-- Hope Ui Design System Css -->
     <link rel="stylesheet" href="{{ asset('assets/css/hope-ui.min.css?v=2.0.0') }}" />
@@ -51,43 +50,51 @@
 
 </head>
 
-<body>
-    <!-- loader Start -->
-    <div id="loading">
-        <div class="loader simple-loader">
-            <div class="loader-body"></div>
-        </div>
-    </div>
-    <!-- loader END -->
-    @include('layouts.menu')
-
-    <main class="main-content">
-        <div class="position-relative iq-banner">
-            @include('layouts.header')
-        </div>
-
-        <br>
-
-        @yield('content')
-
-        <!-- Footer Section Start -->
-        <footer class="footer ">
-            <div class="footer-body ">
-                {{-- <ul class="left-panel list-inline mb-0 p-0">
-                    <li class="list-inline-item"><a href="../../dashboard/extra/privacy-policy.html">Privacy Policy</a></li>
-                    <li class="list-inline-item"><a href="../../dashboard/extra/terms-of-service.html">Terms of Use</a></li>
-                </ul> --}}
-                <div class="text-center">
-                    &copy;
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>
-                    by <a href="#"> footer</a>
-                </div>
+<body class="   boxed">
+    <div class="boxed-inner">
+        <!-- loader Start -->
+        <div id="loading">
+            <div class="loader simple-loader">
+                <div class="loader-body"></div>
             </div>
-        </footer>
-        <!-- Footer Section End -->
-    </main>
+        </div>
+        <!-- loader END -->
+        <span class="screen-darken"></span>
+        <main class="main-content">
+            <!--Nav Start-->
+            @include('layouts.boxed.header')
+            <!--Nav End-->
+
+            @yield('content')
+
+            <!-- Footer Section Start -->
+            <footer class="footer">
+                <div class="footer-body">
+                    <ul class="left-panel list-inline mb-0 p-0">
+                        <li class="list-inline-item">
+                            <a href="../dashboard/extra/privacy-policy.html">
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="../dashboard/extra/terms-of-service.html">
+                                Terms of Use
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="right-panel">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        SAFE BKK
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer Section End -->
+        </main>
+        <!-- Wrapper End-->
+    </div>
 
     <!-- Wrapper End-->
 
@@ -102,7 +109,7 @@
 
     <!-- mapchart Script -->
     <script src="{{ asset('assets/js/charts/vectore-chart.js') }}"></script>
-    <script src="{{ asset('assets/js/charts/dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/charts/dashboard.js') }}"></script> --}}
 
     <!-- fslightbox Script -->
     <script src="{{ asset('assets/js/plugins/fslightbox.js') }}"></script>
