@@ -5133,9 +5133,8 @@ fieldset:disabled .btn {
 .navbar-nav .show>.nav-link,
 .navbar-nav .nav-link.active {
     /* color: var(--bs-navbar-active-color); */
-    color: #FFFFFF;
-    background-color: var(--bs-primary);
-    border-radius: 10px;
+    color: var(--bs-primary);
+    border-bottom: 2px solid var(--bs-primary);
 }
 
 .navbar-nav .dropdown-menu {

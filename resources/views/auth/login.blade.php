@@ -55,7 +55,9 @@
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
-            <div class="loader-body"></div>
+            <div class="loader-body d-flex justify-content-center align-items-center">
+                <img src="{{ asset('assets/images/loader.gif') }}" class="rounded-circle" width="400">
+            </div>
         </div>
     </div>
     <!-- loader END -->
@@ -101,9 +103,9 @@
                                                     <rect x="7.72803" y="27.728" width="28" height="4"
                                                         rx="2" transform="rotate(-45 7.72803 27.728)"
                                                         fill="currentColor" />
-                                                    <rect x="10.5366" y="16.3945" width="16" height="4"
-                                                        rx="2" transform="rotate(45 10.5366 16.3945)"
-                                                        fill="currentColor" />
+                                                    <rect x="10.5366" y="16.3945" width="16"
+                                                        height="4" rx="2"
+                                                        transform="rotate(45 10.5366 16.3945)" fill="currentColor" />
                                                     <rect x="10.5562" y="-0.556152" width="28"
                                                         height="4" rx="2"
                                                         transform="rotate(45 10.5562 -0.556152)"

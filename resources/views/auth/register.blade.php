@@ -55,7 +55,9 @@
     <!-- loader Start -->
     <div id="loading">
         <div class="loader simple-loader">
-            <div class="loader-body"></div>
+            <div class="loader-body d-flex justify-content-center align-items-center">
+                <img src="{{ asset('assets/images/loader.gif') }}" class="rounded-circle" width="400">
+            </div>
         </div>
     </div>
     <!-- loader END -->
