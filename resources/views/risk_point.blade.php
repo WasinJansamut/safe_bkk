@@ -10,11 +10,11 @@
                             <table class="table table-sm table-striped table-bordered table-hover">
                                 <thead>
                                     <tr class="ligth text-dark text-center align-middle">
-                                        <th rowspan="2">Remark</th>
-                                        <th rowspan="2">Total Death</th>
-                                        <th rowspan="2">Death in<br>Last 5 Year</th>
-                                        <th rowspan="2">Subdistrict</th>
-                                        <th rowspan="2">District</th>
+                                        <th rowspan="2">ชื่อสถานที่</th>
+                                        <th rowspan="2">ผู้เสียชีวิต<br>(รวม)</th>
+                                        <th rowspan="2">ผู้เสียชีวิต<br>5 ปีย้อนหลัง</th>
+                                        <th rowspan="2">แขวง</th>
+                                        <th rowspan="2">เขต</th>
                                         <th colspan="13">ผู้เสียชีวิตต่อปี</th>
                                     </tr>
                                     <tr class="ligth text-dark text-center">
@@ -142,14 +142,11 @@
         if (document.querySelectorAll('#time_chart').length) {
             var datas = {!! json_encode($count['times']) !!};
             const label = [];
-            datas.forEach(function(data) {
-                label.push(data.TimeRec);
-            })
             const amount = [];
             datas.forEach(function(data) {
+                label.push(data.TimeRec);
                 amount.push(data.count);
             })
-
             const options = {
                 series: [{
                     name: 'ข้อมูล',
@@ -158,7 +155,7 @@
                 chart: {
                     type: 'bar',
                     height: 400,
-                    width: 40000,
+                    width: 50000,
                     stacked: true,
                     toolbar: {
                         show: false
@@ -224,14 +221,11 @@
         if (document.querySelectorAll('#age_chart').length) {
             var datas = {!! json_encode($count['ages']) !!};
             const label = [];
-            datas.forEach(function(data) {
-                label.push(data.Age);
-            })
             const amount = [];
             datas.forEach(function(data) {
+                label.push(data.label);
                 amount.push(data.count);
             })
-
             const options = {
                 series: [{
                     name: 'ข้อมูล',
@@ -240,7 +234,7 @@
                 chart: {
                     type: 'bar',
                     height: 400,
-                    width: 2500,
+                    width: 900,
                     stacked: true,
                     toolbar: {
                         show: false
@@ -280,8 +274,8 @@
                         text: ''
                     },
                     labels: {
-                        minWidth: 19,
-                        maxWidth: 19,
+                        minWidth: 25,
+                        maxWidth: 25,
                         style: {
                             colors: "#8A92A6",
                         },
@@ -306,14 +300,11 @@
         if (document.querySelectorAll('#vehicle_chart').length) {
             var datas = {!! json_encode($count['vehicles']) !!};
             const label = [];
-            datas.forEach(function(data) {
-                label.push(data.TypeMotor);
-            })
             const amount = [];
             datas.forEach(function(data) {
+                label.push(data.label);
                 amount.push(data.count);
             })
-
             const options = {
                 series: [{
                     name: 'ข้อมูล',
@@ -322,7 +313,7 @@
                 chart: {
                     type: 'bar',
                     height: 400,
-                    width: 600,
+                    width: '100%',
                     stacked: true,
                     toolbar: {
                         show: false
@@ -350,7 +341,7 @@
                     categories: label,
                     labels: {
                         minHeight: 30,
-                        maxHeight: 30,
+                        maxHeight: 90,
                         rotate: -90,
                         style: {
                             fontSize: "7pt",
@@ -363,7 +354,7 @@
                     },
                     labels: {
                         minWidth: 25,
-                        maxWidth: 25,
+                        maxWidth: 200,
                         style: {
                             colors: "#8A92A6",
                         },

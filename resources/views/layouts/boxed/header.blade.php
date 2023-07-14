@@ -23,11 +23,6 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item me-1">
-                        <a class="nav-link {{ request()->is('home') ? 'active' : '' }}" href="{{ url('/home') }}">
-                            หน้าหลัก
-                        </a>
-                    </li>
-                    <li class="nav-item me-1">
                         <a class="nav-link {{ request()->is('risk_point') ? 'active' : '' }}"
                             href="{{ route('risk_point') }}">
                             จุดเสี่ยง
