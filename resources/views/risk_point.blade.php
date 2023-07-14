@@ -134,48 +134,56 @@
             </div>
             <!-- [End] Google Map -->
 
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between flex-wrap">
-                        <div class="header-title">
-                            <h4 class="card-title">รายการแต่ละ Case</h4>
+            <!-- [Start] รายการแต่ละ Case -->
+            @if ($id_risk_point)
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between flex-wrap">
+                            <div class="header-title">
+                                <h4 class="card-title">รายการแต่ละ Case</h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr class="ligth text-dark text-center align-middle">
-                                        <th>วัน-เวลาที่เสียชีวิต</th>
-                                        <th>อายุ</th>
-                                        <th>แขวง</th>
-                                        <th>เขต</th>
-                                        <th>พาหนะ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($integration_finals as $integration_final)
-                                        <tr class="text-center">
-                                            <td class="text-dark">
-                                                @if ($integration_final->DateRec)
-                                                    {{ date('d/m/Y', strtotime($integration_final->DateRec)) ?? '' }}
-                                                @endif
-                                                @if ($integration_final->TimeRec)
-                                                    {{ date('H:i', strtotime($integration_final->TimeRec)) ?? '' }} น.
-                                                @endif
-                                            </td>
-                                            <td class="text-dark">{{ $integration_final->Age ?? 0 }}</td>
-                                            <td class="text-dark">{{ $integration_final->AccDist ?? '' }}</td>
-                                            <td class="text-dark">{{ $integration_final->AccSubDist ?? '' }}</td>
-                                            <td class="text-dark">{{ $integration_final->TypeMotor ?? '' }}</td>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr class="ligth text-dark text-center align-middle">
+                                            <th>รหัสเคส</th>
+                                            <th>วัน-เวลาที่เสียชีวิต</th>
+                                            <th>อายุ</th>
+                                            <th>แขวง</th>
+                                            <th>เขต</th>
+                                            <th>พาหนะ</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($integration_finals as $integration_final)
+                                            <tr class="text-center">
+                                                <td class="text-dark">
+                                                    {{ $integration_final->DEAD_CONSO_REPORT_ID ?? '' }}
+                                                </td>
+                                                <td class="text-dark">
+                                                    @if ($integration_final->DateRec)
+                                                        {{ date('d/m/Y', strtotime($integration_final->DateRec)) ?? '' }}
+                                                    @endif
+                                                    @if ($integration_final->TimeRec)
+                                                        {{ date('H:i', strtotime($integration_final->TimeRec)) ?? '' }} น.
+                                                    @endif
+                                                </td>
+                                                <td class="text-dark">{{ $integration_final->Age ?? 0 }}</td>
+                                                <td class="text-dark">{{ $integration_final->AccDist ?? '' }}</td>
+                                                <td class="text-dark">{{ $integration_final->AccSubDist ?? '' }}</td>
+                                                <td class="text-dark">{{ $integration_final->TypeMotor ?? '' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
+            <!-- [End] รายการแต่ละ Case -->
         </div>
     </div>
 @endsection
@@ -419,8 +427,8 @@
     <!-- [End] Vehicle Chart -->
 
     <!-- [Start] Google Map -->
-    {{-- <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script> --}}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script>
     <script>
         initMap();
         // initMap and display the map

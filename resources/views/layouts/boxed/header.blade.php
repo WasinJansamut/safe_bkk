@@ -49,47 +49,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                    <a href="#" class="search-toggle nav-link" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <img src="../assets/images/Flag/flag001.png" class="img-fluid rounded-circle" alt="user"
-                            style="height: 30px; min-width: 30px; width: 30px;">
-                        <span class="bg-primary"></span>
-                    </a>
-                    <div class="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="dropdownMenuButton2">
-                        <div class="card shadow-none m-0 border-0">
-                            <div class=" p-0 ">
-                                <ul class="list-group list-group-flush">
-                                    <li class="iq-sub-card list-group-item"><a class="p-0" href="#"><img
-                                                src="../assets/images/Flag/flag-03.png" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />Spanish</a>
-                                    </li>
-                                    <li class="iq-sub-card list-group-item"><a class="p-0" href="#"><img
-                                                src="../assets/images/Flag/flag-04.png" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />Italian</a>
-                                    </li>
-                                    <li class="iq-sub-card list-group-item"><a class="p-0" href="#"><img
-                                                src="../assets/images/Flag/flag-02.png" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />French</a>
-                                    </li>
-                                    <li class="iq-sub-card list-group-item"><a class="p-0" href="#"><img
-                                                src="../assets/images/Flag/flag-05.png" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />German</a>
-                                    </li>
-                                    <li class="iq-sub-card list-group-item"><a class="p-0" href="#"><img
-                                                src="../assets/images/Flag/flag-06.png" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />Japanese</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
                     <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
                         <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -123,54 +82,13 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="">
-                                            <img class="avatar-40 rounded-pill bg-soft-primary p-1"
-                                                src="../assets/images/shapes/02.png" alt="">
-                                        </div>
-                                        <div class="ms-3 w-100">
-                                            <h6 class="mb-0 ">New customer is join</h6>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-0">Cyst Bni</p>
-                                                <small class="float-right font-size-12">5 days ago</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <img class="avatar-40 rounded-pill bg-soft-primary p-1"
-                                            src="../assets/images/shapes/03.png" alt="">
-                                        <div class="ms-3 w-100">
-                                            <h6 class="mb-0 ">Two customer is left</h6>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-0">Cyst Bni</p>
-                                                <small class="float-right font-size-12">2 days ago</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <img class="avatar-40 rounded-pill bg-soft-primary p-1"
-                                            src="../assets/images/shapes/04.png" alt="">
-                                        <div class="w-100 ms-3">
-                                            <h6 class="mb-0 ">New Mail from Fenny</h6>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <p class="mb-0">Cyst Bni</p>
-                                                <small class="float-right font-size-12">3 days ago</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
                             </div>
                         </div>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" id="mail-drop" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                    <a href="#" class="nav-link" id="mail-drop" data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path opacity="0.4"
@@ -199,54 +117,6 @@
                                         <div class=" w-100 ms-3">
                                             <h6 class="mb-0 ">Bni Emma Watson</h6>
                                             <small class="float-left font-size-12">13 Jun</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="">
-                                            <img class="avatar-40 rounded-pill bg-soft-primary p-1"
-                                                src="../assets/images/shapes/02.png" alt="">
-                                        </div>
-                                        <div class="ms-3">
-                                            <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
-                                            <small class="float-left font-size-12">20 Apr</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="">
-                                            <img class="avatar-40 rounded-pill bg-soft-primary p-1"
-                                                src="../assets/images/shapes/03.png" alt="">
-                                        </div>
-                                        <div class="ms-3">
-                                            <h6 class="mb-0 ">Why do we use it?</h6>
-                                            <small class="float-left font-size-12">30 Jun</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="">
-                                            <img class="avatar-40 rounded-pill bg-soft-primary p-1"
-                                                src="../assets/images/shapes/04.png" alt="">
-                                        </div>
-                                        <div class="ms-3">
-                                            <h6 class="mb-0 ">Variations Passages</h6>
-                                            <small class="float-left font-size-12">12 Sep</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="iq-sub-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="">
-                                            <img class="avatar-40 rounded-pill bg-soft-primary p-1"
-                                                src="../assets/images/shapes/05.png" alt="">
-                                        </div>
-                                        <div class="ms-3">
-                                            <h6 class="mb-0 ">Lorem Ipsum generators</h6>
-                                            <small class="float-left font-size-12">5 Dec</small>
                                         </div>
                                     </div>
                                 </a>
