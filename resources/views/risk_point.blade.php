@@ -132,6 +132,36 @@
                 </div>
             </div>
             <!-- Google Map End -->
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between flex-wrap">
+                        <div class="header-title">
+                            <h4 class="card-title">รายการแต่ละ Case</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div style="text-align: justify">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum, dolore porro beatae earum hic
+                            dolorum fugiat et nostrum aut fuga. Sequi dolores adipisci delectus quo fugiat distinctio dicta
+                            assumenda deserunt fugit temporibus perferendis, ad rem quae animi tenetur eligendi minus
+                            quisquam impedit itaque dolorem libero excepturi! Possimus, quae necessitatibus. Ullam accusamus
+                            sint placeat quos eius dolor unde dignissimos aperiam, quam maiores aliquam necessitatibus nemo.
+                            Distinctio, cum impedit sapiente amet aspernatur assumenda, quibusdam, enim repellat culpa vero
+                            nemo velit doloremque iure voluptatem unde est aliquid cupiditate eum ab voluptatum et nam
+                            deleniti. Error aliquam quasi sit excepturi suscipit aspernatur dicta ad quos aut eos. Minima,
+                            unde dolor et dolorem nostrum quam similique nisi odio ut quos ipsum optio quia. Aliquam
+                            voluptatum fuga dicta provident sint nobis quaerat magni, praesentium quidem modi perferendis
+                            expedita ab a vero temporibus earum, itaque doloribus consequuntur rerum officia omnis sit,
+                            aliquid blanditiis. Molestias, dignissimos atque ducimus recusandae porro doloremque facilis
+                            nemo odio reprehenderit praesentium ab quia nam excepturi tempore ullam sed expedita eius. Modi
+                            illo recusandae tenetur rem quaerat aperiam nemo, porro debitis, molestias pariatur saepe atque
+                            earum velit, beatae praesentium necessitatibus eaque libero blanditiis officiis animi! Eaque
+                            adipisci, error quibusdam non repudiandae beatae unde corporis!
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
