@@ -72,7 +72,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h4 class="card-title">Time</h4>
+                            <h4 class="card-title">เวลา</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -89,7 +89,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h4 class="card-title">Age</h4>
+                            <h4 class="card-title">อายุ</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -106,7 +106,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h4 class="card-title">Vehicle</h4>
+                            <h4 class="card-title">พาหนะ</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -144,7 +144,7 @@
             const label = [];
             const amount = [];
             datas.forEach(function(data) {
-                label.push(data.TimeRec);
+                label.push(data.label);
                 amount.push(data.count);
             })
             const options = {
@@ -155,7 +155,7 @@
                 chart: {
                     type: 'bar',
                     height: 400,
-                    width: 50000,
+                    width: 1100,
                     stacked: true,
                     toolbar: {
                         show: false
@@ -196,7 +196,7 @@
                     },
                     labels: {
                         minWidth: 19,
-                        maxWidth: 19,
+                        // maxWidth: 19,
                         style: {
                             colors: "#8A92A6",
                         },
@@ -234,7 +234,7 @@
                 chart: {
                     type: 'bar',
                     height: 400,
-                    width: 900,
+                    width: 950,
                     stacked: true,
                     toolbar: {
                         show: false
@@ -275,7 +275,7 @@
                     },
                     labels: {
                         minWidth: 25,
-                        maxWidth: 25,
+                        // maxWidth: 25,
                         style: {
                             colors: "#8A92A6",
                         },
@@ -312,8 +312,8 @@
                 }],
                 chart: {
                     type: 'bar',
-                    height: 400,
-                    width: '100%',
+                    height: 415,
+                    width: 500,
                     stacked: true,
                     toolbar: {
                         show: false
@@ -341,8 +341,8 @@
                     categories: label,
                     labels: {
                         minHeight: 30,
-                        maxHeight: 90,
-                        rotate: -90,
+                        maxHeight: 65,
+                        // rotate: -90,
                         style: {
                             fontSize: "7pt",
                         },
@@ -354,7 +354,7 @@
                     },
                     labels: {
                         minWidth: 25,
-                        maxWidth: 200,
+                        // maxWidth: 200,
                         style: {
                             colors: "#8A92A6",
                         },

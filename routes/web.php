@@ -16,13 +16,15 @@ use App\Http\Controllers\LogoutController;
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+    // return view('auth/login');
+    return redirect()->route('risk_point');
 });
+Route::get('/risk_point', [HomeController::class, 'risk_point'])->name('risk_point');
+Route::get('/risk_point/{search}', [HomeController::class, 'risk_point_search'])->name('risk_point.search');
+Route::get('/working_group', [HomeController::class, 'working_group'])->name('working_group');
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/risk_point', [HomeController::class, 'risk_point'])->name('risk_point');
-    Route::get('/working_group', [HomeController::class, 'working_group'])->name('working_group');
     Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
 });

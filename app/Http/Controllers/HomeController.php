@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function risk_point()
     {
@@ -22,6 +22,7 @@ class HomeController extends Controller
             return Integration_final::get();
         });
 
+        /* Age Start */
         // Cache::forget('cached_integration_final_age');
         $ages = Cache::remember("cached_integration_final_age", 3600, function () {
             // return Integration_final::selectRaw('Age, count(*) as count')
@@ -58,14 +59,57 @@ class HomeController extends Controller
                 ->groupBy('label')
                 ->get();
         });
+        /* Age End */
+
+        /* Time Start */
         $times = Cache::remember("cached_integration_final_time", 3600, function () {
-            return Integration_final::selectRaw('TimeRec, count(*) as count')
-                ->whereNotNull('TimeRec')
-                ->groupBy('TimeRec')
-                ->orderBy('TimeRec')
-                ->get();
+            // return Integration_final::selectRaw('TimeRec, count(*) as count')
+            //     ->whereNotNull('TimeRec')
+            //     ->groupBy('TimeRec')
+            //     ->orderBy('TimeRec')
+            //     ->get();
+                return Integration_final::get();
         });
-        Cache::forget('cached_integration_final_vehicle');
+        for ($i=0; $i<=24; $i++) { // สร้างตัวแปร Array เก็บค่า ชั่วโมง
+            $oclock[$i]['label'] = '';
+            $oclock[$i]['count'] = 0;
+        }
+        foreach ($times as $time) {
+            if ($time->TimeRec != NULL) {
+                $time24 = date('H:i', strtotime($time->TimeRec));
+                if ($time24 >= '00:00' && $time24 <= '00:59') { $oclock[0]['label'] = "00:00"; $oclock[0]['count'] += 1; }
+                else if ($time24 >= '01:00' && $time24 <= '01:59') { $oclock[1]['label'] = "01:00"; $oclock[1]['count'] += 1; }
+                else if ($time24 >= '02:00' && $time24 <= '02:59') { $oclock[2]['label'] = "02:00"; $oclock[2]['count'] += 1; }
+                else if ($time24 >= '03:00' && $time24 <= '03:59') { $oclock[3]['label'] = "03:00"; $oclock[3]['count'] += 1; }
+                else if ($time24 >= '04:00' && $time24 <= '04:59') { $oclock[4]['label'] = "04:00"; $oclock[4]['count'] += 1; }
+                else if ($time24 >= '05:00' && $time24 <= '05:59') { $oclock[5]['label'] = "05:00"; $oclock[5]['count'] += 1; }
+                else if ($time24 >= '06:00' && $time24 <= '06:59') { $oclock[6]['label'] = "06:00"; $oclock[6]['count'] += 1; }
+                else if ($time24 >= '07:00' && $time24 <= '07:59') { $oclock[7]['label'] = "07:00"; $oclock[7]['count'] += 1; }
+                else if ($time24 >= '08:00' && $time24 <= '08:59') { $oclock[8]['label'] = "08:00"; $oclock[8]['count'] += 1; }
+                else if ($time24 >= '09:00' && $time24 <= '09:59') { $oclock[9]['label'] = "09:00"; $oclock[9]['count'] += 1; }
+                else if ($time24 >= '10:00' && $time24 <= '10:59') { $oclock[10]['label'] = "10:00"; $oclock[10]['count'] += 1; }
+                else if ($time24 >= '11:00' && $time24 <= '11:59') { $oclock[11]['label'] = "11:00"; $oclock[11]['count'] += 1; }
+                else if ($time24 >= '12:00' && $time24 <= '12:59') { $oclock[12]['label'] = "12:00"; $oclock[12]['count'] += 1; }
+                else if ($time24 >= '13:00' && $time24 <= '13:59') { $oclock[13]['label'] = "13:00"; $oclock[13]['count'] += 1; }
+                else if ($time24 >= '14:00' && $time24 <= '14:59') { $oclock[14]['label'] = "14:00"; $oclock[14]['count'] += 1; }
+                else if ($time24 >= '15:00' && $time24 <= '15:59') { $oclock[15]['label'] = "15:00"; $oclock[15]['count'] += 1; }
+                else if ($time24 >= '16:00' && $time24 <= '16:59') { $oclock[16]['label'] = "16:00"; $oclock[16]['count'] += 1; }
+                else if ($time24 >= '17:00' && $time24 <= '17:59') { $oclock[17]['label'] = "17:00"; $oclock[17]['count'] += 1; }
+                else if ($time24 >= '18:00' && $time24 <= '18:59') { $oclock[18]['label'] = "18:00"; $oclock[18]['count'] += 1; }
+                else if ($time24 >= '19:00' && $time24 <= '19:59') { $oclock[19]['label'] = "19:00"; $oclock[19]['count'] += 1; }
+                else if ($time24 >= '20:00' && $time24 <= '20:59') { $oclock[20]['label'] = "20:00"; $oclock[20]['count'] += 1; }
+                else if ($time24 >= '21:00' && $time24 <= '21:59') { $oclock[21]['label'] = "21:00"; $oclock[21]['count'] += 1; }
+                else if ($time24 >= '22:00' && $time24 <= '22:59') { $oclock[22]['label'] = "22:00"; $oclock[22]['count'] += 1; }
+                else if ($time24 >= '23:00' && $time24 <= '23:59') { $oclock[23]['label'] = "23:00"; $oclock[23]['count'] += 1; }
+            }
+            else {
+                $oclock[24]['label'] = "อื่นๆ";
+                $oclock[24]['count'] += 1;
+            }
+        }
+        /* Time End */
+
+        /* Vehicle Start */
         $vehicles = Cache::remember("cached_integration_final_vehicle", 3600, function () {
             // return Integration_final::selectRaw('TypeMotor, count(*) as count')
             //     ->whereNotNull('TypeMotor')
@@ -91,9 +135,12 @@ class HomeController extends Controller
                 ->orderBy('count', 'DESC')
                 ->get();
         });
+        /* Vehicle End */
+
+        /* เก็บข้อมูลใส่ตัวแปร count */
         $count = [
             'ages' => $ages,
-            'times' => $times,
+            'times' => $oclock,
             'vehicles' => $vehicles,
         ];
         return view('risk_point', compact('risk_points', 'integration_finals', 'count'));
