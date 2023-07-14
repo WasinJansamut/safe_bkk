@@ -37,7 +37,8 @@
                                     @foreach ($risk_points as $risk_point)
                                         <tr class="text-center">
                                             <td class="text-start">
-                                                <a href="#" class="text-dark">
+                                                <a href="{{ route('risk_point.search', $risk_point->id) }}"
+                                                    class="text-dark">
                                                     {{ $risk_point->remark ?? '' }}
                                                 </a>
                                             </td>
@@ -67,7 +68,7 @@
                 </div>
             </div>
 
-            <!-- Time Chart Start -->
+            <!-- [Start] Time Chart -->
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
@@ -82,9 +83,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Time Chart End -->
+            <!-- [End] Time Chart -->
 
-            <!-- Age Chart Start -->
+            <!-- [Start] Age Chart -->
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
@@ -99,9 +100,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Age Chart End -->
+            <!-- [End] Age Chart -->
 
-            <!-- Vehicle Chart Start -->
+            <!-- [Start] Vehicle Chart -->
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
@@ -116,9 +117,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Vehicle Chart End -->
+            <!-- [End] Vehicle Chart -->
 
-            <!-- Google Map Start -->
+            <!-- [Start] Google Map -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between flex-wrap">
@@ -131,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Google Map End -->
+            <!-- [End] Google Map -->
 
             <div class="col-12">
                 <div class="card">
@@ -141,23 +142,36 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div style="text-align: justify">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum, dolore porro beatae earum hic
-                            dolorum fugiat et nostrum aut fuga. Sequi dolores adipisci delectus quo fugiat distinctio dicta
-                            assumenda deserunt fugit temporibus perferendis, ad rem quae animi tenetur eligendi minus
-                            quisquam impedit itaque dolorem libero excepturi! Possimus, quae necessitatibus. Ullam accusamus
-                            sint placeat quos eius dolor unde dignissimos aperiam, quam maiores aliquam necessitatibus nemo.
-                            Distinctio, cum impedit sapiente amet aspernatur assumenda, quibusdam, enim repellat culpa vero
-                            nemo velit doloremque iure voluptatem unde est aliquid cupiditate eum ab voluptatum et nam
-                            deleniti. Error aliquam quasi sit excepturi suscipit aspernatur dicta ad quos aut eos. Minima,
-                            unde dolor et dolorem nostrum quam similique nisi odio ut quos ipsum optio quia. Aliquam
-                            voluptatum fuga dicta provident sint nobis quaerat magni, praesentium quidem modi perferendis
-                            expedita ab a vero temporibus earum, itaque doloribus consequuntur rerum officia omnis sit,
-                            aliquid blanditiis. Molestias, dignissimos atque ducimus recusandae porro doloremque facilis
-                            nemo odio reprehenderit praesentium ab quia nam excepturi tempore ullam sed expedita eius. Modi
-                            illo recusandae tenetur rem quaerat aperiam nemo, porro debitis, molestias pariatur saepe atque
-                            earum velit, beatae praesentium necessitatibus eaque libero blanditiis officiis animi! Eaque
-                            adipisci, error quibusdam non repudiandae beatae unde corporis!
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr class="ligth text-dark text-center align-middle">
+                                        <th>วัน-เวลาที่เสียชีวิต</th>
+                                        <th>อายุ</th>
+                                        <th>แขวง</th>
+                                        <th>เขต</th>
+                                        <th>พาหนะ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($integration_finals as $integration_final)
+                                        <tr class="text-center">
+                                            <td class="text-dark">
+                                                @if ($integration_final->DateRec)
+                                                    {{ date('d/m/Y', strtotime($integration_final->DateRec)) ?? '' }}
+                                                @endif
+                                                @if ($integration_final->TimeRec)
+                                                    {{ date('H:i', strtotime($integration_final->TimeRec)) ?? '' }} น.
+                                                @endif
+                                            </td>
+                                            <td class="text-dark">{{ $integration_final->Age ?? 0 }}</td>
+                                            <td class="text-dark">{{ $integration_final->AccDist ?? '' }}</td>
+                                            <td class="text-dark">{{ $integration_final->AccSubDist ?? '' }}</td>
+                                            <td class="text-dark">{{ $integration_final->TypeMotor ?? '' }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -167,7 +181,7 @@
 @endsection
 
 @section('script')
-    <!-- Time Chart Start -->
+    <!-- [Start] Time Chart -->
     <script>
         if (document.querySelectorAll('#time_chart').length) {
             var datas = {!! json_encode($count['times']) !!};
@@ -244,9 +258,9 @@
             chart.render();
         }
     </script>
-    <!-- Time Chart End -->
+    <!-- [End] Time Chart -->
 
-    <!-- Age Chart Start -->
+    <!-- [Start] Age Chart -->
     <script>
         if (document.querySelectorAll('#age_chart').length) {
             var datas = {!! json_encode($count['ages']) !!};
@@ -323,9 +337,9 @@
             chart.render();
         }
     </script>
-    <!-- Age Chart End -->
+    <!-- [End] Age Chart -->
 
-    <!-- Vehicle Chart Start -->
+    <!-- [Start] Vehicle Chart -->
     <script>
         if (document.querySelectorAll('#vehicle_chart').length) {
             var datas = {!! json_encode($count['vehicles']) !!};
@@ -402,9 +416,9 @@
             chart.render();
         }
     </script>
-    <!-- Vehicle Chart End -->
+    <!-- [End] Vehicle Chart -->
 
-    <!-- Google Map Start -->
+    <!-- [Start] Google Map -->
     {{-- <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script> --}}
     <script>
@@ -444,5 +458,5 @@
             });
         };
     </script>
-    <!-- Google Map End -->
+    <!-- [End] Google Map -->
 @endsection
