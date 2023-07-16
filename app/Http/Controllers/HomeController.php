@@ -88,6 +88,7 @@ class HomeController extends Controller
         for ($i=0; $i<count($oclock); $i++) { // เก็บ label ชั่วโมง
             $oclock[$i]['label'] = sprintf("%02d", $i).":00";
         }
+        $oclock[24]['label'] = "อื่นๆ";
         /* [End] Time */
 
         /* [Start] Age */

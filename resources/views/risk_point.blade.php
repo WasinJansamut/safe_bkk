@@ -37,8 +37,7 @@
                                     @foreach ($risk_points as $risk_point)
                                         <tr class="text-center">
                                             <td class="text-start">
-                                                <a href="{{ route('risk_point.search', $risk_point->id) }}"
-                                                    class="text-dark">
+                                                <a href="{{ route('risk_point.search', $risk_point->id) }}">
                                                     {{ $risk_point->remark ?? '' }}
                                                 </a>
                                             </td>
@@ -275,8 +274,10 @@
             const label = [];
             const amount = [];
             datas.forEach(function(data) {
-                label.push(data.label);
-                amount.push(data.count);
+                if (data.label != 'อื่นๆ') {
+                    label.push(data.label);
+                    amount.push(data.count);
+                }
             })
             const options = {
                 series: [{
@@ -286,7 +287,7 @@
                 chart: {
                     type: 'bar',
                     height: 400,
-                    width: 950,
+                    width: 900,
                     stacked: true,
                     toolbar: {
                         show: false
@@ -354,8 +355,10 @@
             const label = [];
             const amount = [];
             datas.forEach(function(data) {
-                label.push(data.label);
-                amount.push(data.count);
+                if (data.label != 'อื่นๆ') {
+                    label.push(data.label);
+                    amount.push(data.count);
+                }
             })
             const options = {
                 series: [{
@@ -365,7 +368,7 @@
                 chart: {
                     type: 'bar',
                     height: 415,
-                    width: 500,
+                    width: 450,
                     stacked: true,
                     toolbar: {
                         show: false
@@ -427,8 +430,8 @@
     <!-- [End] Vehicle Chart -->
 
     <!-- [Start] Google Map -->
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script>
+    {{-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script> --}}
     <script>
         initMap();
         // initMap and display the map
