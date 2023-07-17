@@ -19,18 +19,19 @@ class HomeController extends Controller
     {
         $id_risk_point = $request->id;
         $risk_points = Risk_points::orderBy('remark')->get();
+        $google_map_street_view = NULL;
         $case_list = [];
-
         // เก็บค่า case_list ใน Array
         if ($id_risk_point) {
             $search = 1;
             $risk_point = Risk_points::findOrFail($id_risk_point);
             $case_list = explode(",", $risk_point->case_list);
-        }
 
+            $google_map_street_view = $risk_point; // ไว้แสดง Google Map Street View
+        }
         /* รายการแต่ละ Case / Google Map */
-        Cache::forget('cached_integration_final');
-        $integration_finals = Cache::remember("cached_integration_final", 3600, function () use ($id_risk_point, $case_list) {
+        // Cache::forget("cached_integration_final_{$id_risk_point}");
+        $integration_finals = Cache::remember("cached_integration_final_{$id_risk_point}", 3600, function () use ($id_risk_point, $case_list) {
             $integration_final = new Integration_final;
             if ($id_risk_point) {
                 $integration_final = $integration_final->where(function ($query) use ($case_list) {
@@ -44,7 +45,7 @@ class HomeController extends Controller
         });
 
         /* [Start] Time */
-        // $times = Cache::remember("cached_integration_final_time", 3600, function () {
+        // $times = Cache::remember("cached_integration_final_time_{$id_risk_point}", 3600, function () {
         //     return Integration_final::get();
         // });
         $times = $integration_finals;
@@ -92,8 +93,8 @@ class HomeController extends Controller
         /* [End] Time */
 
         /* [Start] Age */
-        Cache::forget('cached_integration_final_age');
-        $ages = Cache::remember("cached_integration_final_age", 3600, function () use ($id_risk_point, $case_list) {
+        // Cache::forget("cached_integration_final_age_{$id_risk_point}");
+        $ages = Cache::remember("cached_integration_final_age_{$id_risk_point}", 3600, function () use ($id_risk_point, $case_list) {
             $integration_final = Integration_final::select(DB::raw('
                 CASE
                     WHEN age >= 0 AND age <= 5 THEN "0-5"
@@ -133,8 +134,8 @@ class HomeController extends Controller
         /* [End] Age */
 
         /* [Start] Vehicle */
-        Cache::forget('cached_integration_final_vehicle');
-        $vehicles = Cache::remember("cached_integration_final_vehicle", 3600, function () use ($id_risk_point, $case_list) {
+        // Cache::forget("cached_integration_final_vehicle_{$id_risk_point}");
+        $vehicles = Cache::remember("cached_integration_final_vehicle_{$id_risk_point}", 3600, function () use ($id_risk_point, $case_list) {
             $integration_final = Integration_final::select(DB::raw('
                 CASE
                     WHEN TypeMotor LIKE "%รถจักรยานยนต์%" THEN "รถจักรยานยนต์"
@@ -168,12 +169,12 @@ class HomeController extends Controller
             'times' => $oclock,
             'vehicles' => $vehicles,
         ];
-        return view('risk_point', compact('risk_points', 'integration_finals', 'count', 'id_risk_point'));
+        return view('risk_point', compact('risk_points' , 'google_map_street_view', 'integration_finals', 'count', 'id_risk_point'));
     }
 
     public function integration_final($id)
     {
-        Cache::forget("cached_integration_final_{$id}");
+        // Cache::forget("cached_integration_final_{$id}");
         $integration_finals = Cache::remember("cached_integration_final_{$id}", 3600, function () use ($id) {
             return Integration_final::where('DEAD_CONSO_REPORT_ID', $id)->get();
         });

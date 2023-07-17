@@ -68,11 +68,14 @@
             </div>
 
             <!-- [Start] Time Chart -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 @if (!$google_map_street_view) col-lg-4 @endif">
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h4 class="card-title">เวลา</h4>
+                            <h4 class="card-title">
+                                <i class="fas fa-clock me-1"></i>
+                                เวลา
+                            </h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -85,11 +88,14 @@
             <!-- [End] Time Chart -->
 
             <!-- [Start] Age Chart -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 @if (!$google_map_street_view) col-lg-4 @endif">
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h4 class="card-title">อายุ</h4>
+                            <h4 class="card-title">
+                                <i class="fas fa-user-clock me-1"></i>
+                                อายุ
+                            </h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -102,11 +108,14 @@
             <!-- [End] Age Chart -->
 
             <!-- [Start] Vehicle Chart -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 @if (!$google_map_street_view) col-lg-4 @endif">
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
-                            <h4 class="card-title">พาหนะ</h4>
+                            <h4 class="card-title">
+                                <i class="fas fa-car-side me-1"></i>
+                                พาหนะ
+                            </h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -118,12 +127,35 @@
             </div>
             <!-- [End] Vehicle Chart -->
 
-            <!-- [Start] Google Map -->
-            <div class="col-12">
+            <!-- [Start] Image -->
+            @if ($google_map_street_view)
+                <div class="col-sm-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <h4 class="card-title">
+                                    <i class="far fa-image me-1"></i>
+                                    รูปภาพ
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <img src="{{ asset('upload/' . $risk_point->cluster . '.png') ?? '' }}" width="100%">
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <!-- [End] Image -->
+
+            <!-- [Start] Google Map  -->
+            <div class="col-sm-12 @if ($google_map_street_view) col-md-6 @endif">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between flex-wrap">
                         <div class="header-title">
-                            <h4 class="card-title">Google Map</h4>
+                            <h4 class="card-title">
+                                <i class="fas fa-map me-1"></i>
+                                Google Map
+                            </h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -133,13 +165,36 @@
             </div>
             <!-- [End] Google Map -->
 
+            <!-- [Start] Google Map Street View -->
+            @if ($google_map_street_view)
+                <div class="col-sm-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between flex-wrap">
+                            <div class="header-title">
+                                <h4 class="card-title">
+                                    <i class="fas fa-street-view me-1"></i>
+                                    Street View
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="street_view" class="w-100" style="height: 400px"></div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <!-- [End] Google Map Street View -->
+
             <!-- [Start] รายการแต่ละ Case -->
             @if ($id_risk_point)
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between flex-wrap">
                             <div class="header-title">
-                                <h4 class="card-title">รายการแต่ละ Case</h4>
+                                <h4 class="card-title">
+                                    <i class="fas fa-list me-1"></i>
+                                    รายการแต่ละ Case
+                                </h4>
                             </div>
                         </div>
                         <div class="card-body">
@@ -221,6 +276,14 @@
                         </div>
                         <div class="col-8">
                             <div class="card">
+                                <div class="card-header d-flex justify-content-between flex-wrap">
+                                    <div class="header-title">
+                                        <h4 class="card-title">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            ข้อมูล
+                                        </h4>
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <div id="modal_detail"></div>
                                 </div>
@@ -254,7 +317,7 @@
                 }],
                 chart: {
                     type: 'bar',
-                    height: 400,
+                    height: 435,
                     width: 1100,
                     stacked: true,
                     toolbar: {
@@ -335,7 +398,7 @@
                 }],
                 chart: {
                     type: 'bar',
-                    height: 400,
+                    height: 435,
                     width: 900,
                     stacked: true,
                     toolbar: {
@@ -416,8 +479,8 @@
                 }],
                 chart: {
                     type: 'bar',
-                    height: 415,
-                    width: 450,
+                    height: 450,
+                    width: '100%',
                     stacked: true,
                     toolbar: {
                         show: false
@@ -514,7 +577,7 @@
                 });
                 // [End] Map
 
-                // [Start] Street View
+                // [Start] Google Map Street View
                 var panoramaOptions = {
                     position: location,
                     pov: {
@@ -527,15 +590,70 @@
                     document.getElementById("modal_street_view"),
                     panoramaOptions
                 );
-                // [End] Street View
+                // [End] Google Map Street View
 
                 // [Start] รายละเอียด
+                // $.each(data.data[0], function(index, value) {
+                //     detail += '<div class="col-12">';
+                //     detail += index + ' : ' + value;
+                //     detail += '</div>';
+                // });
                 var detail = '<div class="row">';
-                $.each(data.data[0], function(index, value) {
-                    detail += '<div class"col-sm-12 col-md-6">';
-                    detail += index + ' : ' + value;
-                    detail += '</div>';
-                });
+                detail += '<div class="col-12">รหัสเคส : ' +
+                    data.data[0].DEAD_CONSO_REPORT_ID + '</div>';
+                detail += '<div class="col-12">ปีที่เสียชีวิต : ' +
+                    data.data[0].DEAD_YEAR + '</div>';
+                detail += '<div class="col-12">AccNo : ' +
+                    data.data[0].AccNo + '</div>';
+                detail += '<div class="col-12">อายุ : ' +
+                    data.data[0].Age + '</div>';
+                detail += '<div class="col-12">เพศ : ' +
+                    data.data[0].Sex + '</div>';
+                detail += '<div class="col-12">ตำบล : ' +
+                    data.data[0].Tumbol + '</div>';
+                detail += '<div class="col-12">อำเภอ : ' +
+                    data.data[0].District + '</div>';
+                detail += '<div class="col-12">จังหวัด : ' +
+                    data.data[0].Province + '</div>';
+                detail += '<div class="col-12">แอลกอฮอล์ : ' +
+                    data.data[0].RiskAlgohol + '</div>';
+                detail += '<div class="col-12">หมวกกันน็อค : ' +
+                    data.data[0].RiskHelmet + '</div>';
+                detail += '<div class="col-12">เข็มขัดนิรภัย : ' +
+                    data.data[0].RiskSafetyBelt + '</div>';
+                detail += '<div class="col-12">วันที่เสียชีวิต (พ.ศ.) : ' +
+                    data.data[0].DeadDate + '</div>';
+                detail += '<div class="col-12">วันที่เสียชีวิต (ค.ศ.) : ' +
+                    data.data[0].DeadDate_en + '</div>';
+                detail += '<div class="col-12">VictimNO : ' +
+                    data.data[0].VictimNO + '</div>';
+                detail += '<div class="col-12">CarProv : ' +
+                    data.data[0].CarProv + '</div>';
+                detail += '<div class="col-12">ประเภทพาหนะ : ' +
+                    data.data[0].TypeMotor + '</div>';
+                detail += '<div class="col-12">ยี่ห้อพาหนะ : ' +
+                    data.data[0].CarBand + '</div>';
+                detail += '<div class="col-12">DrvAddProv : ' +
+                    data.data[0].DrvAddProv + '</div>';
+                detail += '<div class="col-12">TpNo : ' +
+                    data.data[0].TpNo + '</div>';
+                detail += '<div class="col-12">DateRec : ' +
+                    data.data[0].DateRec + '</div>';
+                detail += '<div class="col-12">TimeRec : ' +
+                    data.data[0].TimeRec + '</div>';
+                detail += '<div class="col-12">เขต : ' +
+                    data.data[0].AccSubDist + '</div>';
+                detail += '<div class="col-12">แขวง : ' +
+                    data.data[0].AccDist + '</div>';
+                detail += '<div class="col-12">AccProv : ' +
+                    data.data[0].AccProv + '</div>';
+                detail += '<div class="col-12">ละติจูด : ' +
+                    data.data[0].Acc_lat + '</div>';
+                detail += '<div class="col-12">ลองติจูด : ' +
+                    data.data[0].Acc_long + '</div>';
+                detail += '<div class="col-12">NCAUSE : ' +
+                    data.data[0].NCAUSE + '</div>';
+                detail += '</div>';
                 detail += '</div>';
                 $('#modal_detail').html(detail);
                 // [End] รายละเอียด
@@ -545,31 +663,39 @@
     <!-- [End] Modal -->
 
     <!-- [Start] Google Map -->
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script>
+    {{-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script> --}}
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script>
         initMap();
         // initMap and display the map
         function initMap() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: {
-                    lat: 13.6722876,
-                    lng: 100.3083531,
-                }, // Replace with the desired center coordinates
-                zoom: 8 // Adjust the zoom level as per your preference
-            });
-
             // สร้างตัวแปร JavaScript จากข้อมูลที่รับมาจาก Laravel Blade
             var integration_finals = {!! json_encode($integration_finals) !!};
+            var google_map_street_view = {!! json_encode($google_map_street_view) !!};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: google_map_street_view ? Number(integration_finals[0].Acc_lat) : 13.6722876,
+                    lng: google_map_street_view ? Number(integration_finals[0].Acc_long) : 100.3083531
+                },
+                zoom: 11,
+            });
+
+            setTimeout(function() { // แก้บัค marker รวมกันเป็นก้อน
+                map.setZoom(8);
+            }, 1000);
+
+            const markers = []; // ตัวแปรเอาไว้สร้าง Clusterer
 
             // Add markers for each location
             integration_finals.forEach(function(integration_final) {
-                var location_marker = { // กำหนด Lat Long
+                var location = { // กำหนด Lat Long
                     lat: Number(integration_final.Acc_lat),
                     lng: Number(integration_final.Acc_long)
                 }
-                var marker = new google.maps.Marker({
-                    position: location_marker,
+                let marker = new google.maps.Marker({
+                    position: location,
                     map: map,
                     icon: "{{ asset('assets/images/icons/dead.png') }}",
                     title: integration_final.DEAD_CONSO_REPORT_ID,
@@ -577,11 +703,37 @@
                 google.maps.event.addListener(marker, 'click', function() {
                     var infowindow = new google.maps.InfoWindow({
                         content: integration_final.DEAD_CONSO_REPORT_ID,
-                        position: location_marker,
+                        position: location,
                     });
                     infowindow.open(map);
                 });
+                markers.push(marker); // สร้าง Clusterer
             });
+
+            new markerClusterer.MarkerClusterer({ // สร้าง Clusterer
+                map,
+                markers
+            });
+
+            // [Start] Google Map Street View
+            if (google_map_street_view) {
+                var panoramaOptions = {
+                    position: {
+                        lat: Number(google_map_street_view.acc_lat),
+                        lng: Number(google_map_street_view.acc_long)
+                    },
+                    pov: {
+                        heading: 34,
+                        pitch: 10,
+                    },
+                    visible: true,
+                };
+                var panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById("street_view"),
+                    panoramaOptions
+                );
+            }
+            // [End] Google Map Street View
         };
     </script>
     <!-- [End] Google Map -->

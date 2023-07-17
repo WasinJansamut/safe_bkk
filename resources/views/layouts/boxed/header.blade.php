@@ -7,7 +7,7 @@
                 </path>
             </svg>
         </button>
-        <a href="{{ url('/home') }}" class="navbar-brand">
+        <a href="{{ url('/') }}" class="navbar-brand">
             <img src="{{ asset('assets/images/logo.png') }}" width="30">
             <h4 class="logo-title">SAFE BKK</h4>
         </a>
