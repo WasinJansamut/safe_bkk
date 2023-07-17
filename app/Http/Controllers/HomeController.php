@@ -171,6 +171,18 @@ class HomeController extends Controller
         return view('risk_point', compact('risk_points', 'integration_finals', 'count', 'id_risk_point'));
     }
 
+    public function integration_final($id)
+    {
+        Cache::forget("cached_integration_final_{$id}");
+        $integration_finals = Cache::remember("cached_integration_final_{$id}", 3600, function () use ($id) {
+            return Integration_final::where('DEAD_CONSO_REPORT_ID', $id)->get();
+        });
+
+        return response()->json([
+            'data' => $integration_finals
+        ]);
+    }
+
     public function working_group()
     {
         return view('working_group');

@@ -21,6 +21,7 @@ Route::get('/', function () {
 });
 Route::get('/risk_point', [HomeController::class, 'risk_point'])->name('risk_point');
 Route::get('/risk_point/{id}', [HomeController::class, 'risk_point'])->name('risk_point.search');
+Route::get('/risk_point/integration_final/{id}', [HomeController::class, 'integration_final'])->name('integration_final.search');
 Route::get('/working_group', [HomeController::class, 'working_group'])->name('working_group');
 
 Auth::routes();

@@ -159,7 +159,11 @@
                                         @foreach ($integration_finals as $integration_final)
                                             <tr class="text-center">
                                                 <td class="text-dark">
-                                                    {{ $integration_final->DEAD_CONSO_REPORT_ID ?? '' }}
+                                                    <a href="" id="modal_view" data-bs-toggle="modal"
+                                                        data-bs-target="#modal"
+                                                        data-id="{{ $integration_final->DEAD_CONSO_REPORT_ID }}">
+                                                        {{ $integration_final->DEAD_CONSO_REPORT_ID ?? '' }}
+                                                    </a>
                                                 </td>
                                                 <td class="text-dark">
                                                     @if ($integration_final->DateRec)
@@ -183,6 +187,51 @@
                 </div>
             @endif
             <!-- [End] รายการแต่ละ Case -->
+        </div>
+    </div>
+@endsection
+
+@section('modal')
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">
+                        <div id="modal_title"></div>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="modal_map" class="w-100" style="height: 300px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="modal_street_view" class="w-100" style="height: 300px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="modal_detail"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -429,9 +478,75 @@
     </script>
     <!-- [End] Vehicle Chart -->
 
+    <!-- [Start] Modal -->
+    <script>
+        $('body').on('click', '#modal_view', function(event) {
+            event.preventDefault();
+            var id = $(this).data('id');
+            $.get('integration_final' + '/' + id, function(
+                data) {
+                $('#modal').modal('show');
+                $('#modal_title').html('#' + data.data[0].DEAD_CONSO_REPORT_ID);
+
+                // [Start] Map
+                var location = { // กำหนด Lat Long
+                    lat: Number(data.data[0].Acc_lat),
+                    lng: Number(data.data[0].Acc_long)
+                }
+                var map = new google.maps.Map(document.getElementById('modal_map'), {
+                    center: location,
+                    zoom: 8 // Adjust the zoom level as per your preference
+                });
+
+                // Add markers for each location
+                var marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    icon: "{{ asset('assets/images/icons/dead.png') }}",
+                    title: data.data[0].DEAD_CONSO_REPORT_ID,
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+                    var infowindow = new google.maps.InfoWindow({
+                        content: data.data[0].DEAD_CONSO_REPORT_ID,
+                        position: location,
+                    });
+                    infowindow.open(map);
+                });
+                // [End] Map
+
+                // [Start] Street View
+                var panoramaOptions = {
+                    position: location,
+                    pov: {
+                        heading: 34,
+                        pitch: 10,
+                    },
+                    visible: true,
+                };
+                var panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById("modal_street_view"),
+                    panoramaOptions
+                );
+                // [End] Street View
+
+                // [Start] รายละเอียด
+                var detail = '<div class="row">';
+                $.each(data.data[0], function(index, value) {
+                    detail += '<div class"col-sm-12 col-md-6">';
+                    detail += index + ' : ' + value;
+                    detail += '</div>';
+                });
+                detail += '</div>';
+                $('#modal_detail').html(detail);
+                // [End] รายละเอียด
+            })
+        });
+    </script>
+    <!-- [End] Modal -->
+
     <!-- [Start] Google Map -->
-    {{-- <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script> --}}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script>
     <script>
         initMap();
         // initMap and display the map
