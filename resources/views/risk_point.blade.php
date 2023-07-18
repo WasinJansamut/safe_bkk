@@ -4,7 +4,7 @@
     <div class="conatiner-fluid content-inner pb-0">
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="datatable" class="table table-sm table-striped table-bordered table-hover w-100">
@@ -69,7 +69,7 @@
 
             <!-- [Start] Time Chart -->
             <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
-                <div class="card">
+                <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-header">
                         <div class="header-title">
                             <h4 class="card-title">
@@ -89,7 +89,7 @@
 
             <!-- [Start] Age Chart -->
             <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
-                <div class="card">
+                <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-header">
                         <div class="header-title">
                             <h4 class="card-title">
@@ -109,7 +109,7 @@
 
             <!-- [Start] Vehicle Chart -->
             <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
-                <div class="card">
+                <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-header">
                         <div class="header-title">
                             <h4 class="card-title">
@@ -130,7 +130,7 @@
             <!-- [Start] Image -->
             @if ($risk_point2)
                 <div class="col-sm-12 col-md-6">
-                    <div class="card">
+                    <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-header">
                             <div class="header-title">
                                 <h4 class="card-title">
@@ -153,7 +153,7 @@
 
             <!-- [Start] Google Map  -->
             <div class="col-sm-12 @if ($risk_point2) col-md-6 @endif">
-                <div class="card">
+                <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-header d-flex justify-content-between flex-wrap">
                         <div class="header-title">
                             <h4 class="card-title">
@@ -172,7 +172,7 @@
             <!-- [Start] Google Map Street View -->
             @if ($risk_point2)
                 <div class="col-sm-12 col-md-6">
-                    <div class="card">
+                    <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-header d-flex justify-content-between flex-wrap">
                             <div class="header-title">
                                 <h4 class="card-title">
@@ -192,7 +192,7 @@
             <!-- [Start] รายการแต่ละ Case -->
             @if ($id_risk_point)
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-header d-flex justify-content-between flex-wrap">
                             <div class="header-title">
                                 <h4 class="card-title">
@@ -333,8 +333,10 @@
             const label = [];
             const amount = [];
             datas.forEach(function(data) {
+                // if (data.label != 'อื่นๆ') {
                 label.push(data.label);
                 amount.push(data.count);
+                // }
             })
             const options = {
                 series: [{
@@ -344,24 +346,25 @@
                 chart: {
                     type: 'bar',
                     height: 435,
-                    width: 1100,
-                    stacked: true,
-                    toolbar: {
-                        show: false
-                    }
+                    width: datas.length * 40,
                 },
                 colors: ["#3a57e8"],
                 plotOptions: {
                     bar: {
-                        horizontal: false,
                         columnWidth: '100%',
-                    },
-                },
-                legend: {
-                    show: false
+                        borderRadius: 10,
+                        dataLabels: {
+                            position: 'top', // top, center, bottom
+                        },
+                    }
                 },
                 dataLabels: {
-                    enabled: false
+                    enabled: true,
+                    offsetY: -20,
+                    style: {
+                        fontSize: '7pt',
+                        colors: ["#304758"]
+                    }
                 },
                 stroke: {
                     show: true,
@@ -370,6 +373,24 @@
                 },
                 xaxis: {
                     categories: label,
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 0.4,
+                                opacityTo: 0.5,
+                            }
+                        }
+                    },
                     labels: {
                         minHeight: 30,
                         maxHeight: 30,
@@ -378,17 +399,22 @@
                             fontSize: "7pt",
                         },
                     },
+
                 },
                 yaxis: {
-                    title: {
-                        text: ''
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false,
                     },
                     labels: {
-                        minWidth: 19,
-                        // maxWidth: 19,
-                        style: {
-                            colors: "#8A92A6",
-                        },
+                        show: false,
+                        // minWidth: 25,
+                        // // maxWidth: 25,
+                        // style: {
+                        //     colors: "#8A92A6",
+                        // },
                     },
                 },
                 tooltip: {
@@ -425,24 +451,24 @@
                 chart: {
                     type: 'bar',
                     height: 435,
-                    width: 900,
-                    stacked: true,
-                    toolbar: {
-                        show: false
-                    }
+                    width: datas.length * 40,
                 },
                 colors: ["#3a57e8"],
                 plotOptions: {
                     bar: {
-                        horizontal: false,
-                        columnWidth: '100%',
-                    },
-                },
-                legend: {
-                    show: false
+                        borderRadius: 10,
+                        dataLabels: {
+                            position: 'top', // top, center, bottom
+                        },
+                    }
                 },
                 dataLabels: {
-                    enabled: false
+                    enabled: true,
+                    offsetY: -20,
+                    style: {
+                        fontSize: '7pt',
+                        colors: ["#304758"]
+                    }
                 },
                 stroke: {
                     show: true,
@@ -451,6 +477,24 @@
                 },
                 xaxis: {
                     categories: label,
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 0.4,
+                                opacityTo: 0.5,
+                            }
+                        }
+                    },
                     labels: {
                         minHeight: 30,
                         maxHeight: 30,
@@ -458,18 +502,23 @@
                         style: {
                             fontSize: "7pt",
                         },
-                    }
+                    },
+
                 },
                 yaxis: {
-                    title: {
-                        text: ''
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false,
                     },
                     labels: {
-                        minWidth: 25,
-                        // maxWidth: 25,
-                        style: {
-                            colors: "#8A92A6",
-                        },
+                        show: false,
+                        // minWidth: 25,
+                        // // maxWidth: 25,
+                        // style: {
+                        //     colors: "#8A92A6",
+                        // },
                     },
                 },
                 tooltip: {
@@ -478,8 +527,76 @@
                             return "ทั้งหมด " + val.toLocaleString() + " ราย"
                         }
                     }
-                }
+                },
             };
+
+
+
+
+
+            // const options = {
+            //     series: [{
+            //         name: 'ข้อมูล',
+            //         data: amount
+            //     }],
+            //     chart: {
+            //         type: 'bar',
+            //         height: 435,
+            //         width: 900,
+            //         stacked: true,
+            //         toolbar: {
+            //             show: false
+            //         }
+            //     },
+            //     colors: ["#3a57e8"],
+            //     plotOptions: {
+            //         bar: {
+            //             horizontal: false,
+            //             columnWidth: '100%',
+            //         },
+            //     },
+            //     legend: {
+            //         show: false
+            //     },
+            //     dataLabels: {
+            //         enabled: false
+            //     },
+            //     stroke: {
+            //         show: true,
+            //         width: 2,
+            //         colors: ['transparent']
+            //     },
+            //     xaxis: {
+            //         categories: label,
+            //         labels: {
+            //             minHeight: 30,
+            //             maxHeight: 30,
+            //             rotate: -90,
+            //             style: {
+            //                 fontSize: "7pt",
+            //             },
+            //         }
+            //     },
+            //     yaxis: {
+            //         title: {
+            //             text: ''
+            //         },
+            //         labels: {
+            //             minWidth: 25,
+            //             // maxWidth: 25,
+            //             style: {
+            //                 colors: "#8A92A6",
+            //             },
+            //         },
+            //     },
+            //     tooltip: {
+            //         y: {
+            //             formatter: function(val) {
+            //                 return "ทั้งหมด " + val.toLocaleString() + " ราย"
+            //             }
+            //         }
+            //     }
+            // };
             const chart = new ApexCharts(document.querySelector("#age_chart"), options);
             chart.render();
         }
@@ -505,25 +622,25 @@
                 }],
                 chart: {
                     type: 'bar',
-                    height: 450,
-                    width: '100%',
-                    stacked: true,
-                    toolbar: {
-                        show: false
-                    }
+                    height: 435,
+                    width: datas.length * 40,
                 },
                 colors: ["#3a57e8"],
                 plotOptions: {
                     bar: {
-                        horizontal: false,
-                        columnWidth: '100%',
-                    },
-                },
-                legend: {
-                    show: false
+                        borderRadius: 10,
+                        dataLabels: {
+                            position: 'top', // top, center, bottom
+                        },
+                    }
                 },
                 dataLabels: {
-                    enabled: false,
+                    enabled: true,
+                    offsetY: -20,
+                    style: {
+                        fontSize: '7pt',
+                        colors: ["#304758"]
+                    }
                 },
                 stroke: {
                     show: true,
@@ -532,25 +649,48 @@
                 },
                 xaxis: {
                     categories: label,
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 0.4,
+                                opacityTo: 0.5,
+                            }
+                        }
+                    },
                     labels: {
                         minHeight: 30,
-                        maxHeight: 65,
-                        // rotate: -90,
+                        maxHeight: 30,
+                        rotate: -90,
                         style: {
                             fontSize: "7pt",
                         },
-                    }
+                    },
+
                 },
                 yaxis: {
-                    title: {
-                        text: ''
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false,
                     },
                     labels: {
-                        minWidth: 25,
-                        // maxWidth: 200,
-                        style: {
-                            colors: "#8A92A6",
-                        },
+                        show: false,
+                        // minWidth: 25,
+                        // // maxWidth: 25,
+                        // style: {
+                        //     colors: "#8A92A6",
+                        // },
                     },
                 },
                 tooltip: {
@@ -559,7 +699,7 @@
                             return "ทั้งหมด " + val.toLocaleString() + " ราย"
                         }
                     }
-                }
+                },
             };
             const chart = new ApexCharts(document.querySelector("#vehicle_chart"), options);
             chart.render();

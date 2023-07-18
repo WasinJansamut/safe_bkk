@@ -15,6 +15,9 @@
     <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="{{ asset('assets/css/core/libs.min.css') }}" />
 
+    <!-- Aos Animation Css -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/aos/dist/aos.css') }}" />
+
     <!-- Hope Ui Design System Css -->
     <link rel="stylesheet" href="{{ asset('assets/css/hope-ui.min.css?v=2.0.0') }}" />
 
@@ -128,6 +131,7 @@
     <script src="{{ asset('assets/js/plugins/form-wizard.js') }}"></script>
 
     <!-- AOS Animation Plugin-->
+    <script src="{{ asset('assets/vendor/aos/dist/aos.js') }}"></script>
 
     <!-- App Script -->
     <script src="{{ asset('assets/js/hope-ui.js') }}" defer></script>
