@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function risk_point(Request $request)
     {
         $id_risk_point = $request->id;
-        $risk_points = Risk_points::orderBy('remark')->get();
+        $risk_points = Risk_points::orderBy('total_death', 'DESC')->get();
         $risk_point2 = NULL;
         $case_list = [];
         // เก็บค่า case_list ใน Array

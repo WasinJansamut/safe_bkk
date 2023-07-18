@@ -7,15 +7,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-sm table-striped table-bordered table-hover">
+                            <table id="datatable" class="table table-sm table-striped table-bordered table-hover w-100">
                                 <thead>
-                                    <tr class="ligth text-dark text-center align-middle">
-                                        <th rowspan="2">ชื่อสถานที่</th>
-                                        <th rowspan="2">ผู้เสียชีวิต<br>(รวม)</th>
-                                        <th rowspan="2">ผู้เสียชีวิต<br>5 ปีย้อนหลัง</th>
-                                        <th rowspan="2">แขวง</th>
-                                        <th rowspan="2">เขต</th>
-                                        <th colspan="13">ผู้เสียชีวิตต่อปี</th>
+                                    <tr class="ligth text-dark align-middle">
+                                        <th class="text-center" rowspan="2">ชื่อสถานที่</th>
+                                        <th class="text-center" rowspan="2">ผู้เสียชีวิต<br>(รวม)</th>
+                                        <th class="text-center" rowspan="2">ผู้เสียชีวิต<br>5 ปีย้อนหลัง</th>
+                                        <th class="text-center" rowspan="2">แขวง</th>
+                                        <th class="text-center" rowspan="2">เขต</th>
+                                        <th class="text-center" colspan="13">ผู้เสียชีวิตต่อปี</th>
                                     </tr>
                                     <tr class="ligth text-dark text-center">
                                         <th>2554</th>
@@ -140,7 +140,11 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <img src="{{ asset('upload/' . $risk_point2->cluster . '.png') ?? '' }}" width="100%">
+                            <a data-fslightbox="gallery"
+                                href="{{ asset('upload/' . $risk_point2->cluster . '.png') ?? '' }}">
+                                <img src="{{ asset('upload/' . $risk_point2->cluster . '.png') ?? '' }}" width="100%">
+                            </a>
+                            {{-- <img src="{{ asset('upload/' . $risk_point2->cluster . '.png') ?? '' }}" width="100%"> --}}
                         </div>
                     </div>
                 </div>
@@ -203,9 +207,10 @@
                                     <thead>
                                         <tr class="ligth text-dark text-center align-middle">
                                             <th>รหัสเคส</th>
-                                            <th>วัน-เวลาที่เสียชีวิต</th>
+                                            <th>วันที่เสียชีวิต</th>
+                                            <th>เวลาที่เสียชีวิต</th>
                                             <th>อายุ</th>
-                                            <th>แขวง</th>
+                                            <th>เพศ</th>
                                             <th>เขต</th>
                                             <th>พาหนะ</th>
                                         </tr>
@@ -224,12 +229,20 @@
                                                     @if ($integration_final->DateRec)
                                                         {{ date('d/m/Y', strtotime($integration_final->DateRec)) ?? '' }}
                                                     @endif
+                                                </td>
+                                                <td class="text-dark">
                                                     @if ($integration_final->TimeRec)
                                                         {{ date('H:i', strtotime($integration_final->TimeRec)) ?? '' }} น.
                                                     @endif
                                                 </td>
                                                 <td class="text-dark">{{ $integration_final->Age ?? 0 }}</td>
-                                                <td class="text-dark">{{ $integration_final->AccDist ?? '' }}</td>
+                                                <td class="text-dark">
+                                                    @if ($integration_final->Sex == 1)
+                                                        ชาย
+                                                    @elseif ($integration_final->Sex == 2)
+                                                        หญิง
+                                                    @endif
+                                                </td>
                                                 <td class="text-dark">{{ $integration_final->AccSubDist ?? '' }}</td>
                                                 <td class="text-dark">{{ $integration_final->TypeMotor ?? '' }}</td>
                                             </tr>
@@ -258,7 +271,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -274,7 +287,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-6">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between flex-wrap">
                                     <div class="header-title">
@@ -300,6 +313,19 @@
 @endsection
 
 @section('script')
+
+    <script>
+        $(document).ready(function() {
+            $('#datatable').dataTable({
+                "pageLength": 100, // จำนวนข้อมูลต่อหน้า
+                "order": [1, 'DESC'], // เรียง ผู้เสียชีวิต (รวม)
+                "dom": 'rtip', // ซ่อนช่องค้นหา
+                info: false,
+                paging: false, // ซ่อนหน้า
+            });
+        });
+    </script>
+
     <!-- [Start] Time Chart -->
     <script>
         if (document.querySelectorAll('#time_chart').length) {
@@ -561,6 +587,8 @@
                     zoom: 8 // Adjust the zoom level as per your preference
                 });
 
+                map.setZoom(18);
+
                 // Add markers for each location
                 var marker = new google.maps.Marker({
                     position: location,
@@ -568,9 +596,17 @@
                     icon: "{{ asset('assets/images/icons/dead.png') }}",
                     title: data.data[0].DEAD_CONSO_REPORT_ID,
                 });
+                var sex = null;
+                if (data.data[0].Sex == 1) {
+                    sex = 'ชาย';
+                } else if (data.data[0].Sex == 2) {
+                    sex = 'หญิง';
+                }
                 google.maps.event.addListener(marker, 'click', function() {
                     var infowindow = new google.maps.InfoWindow({
-                        content: 'รหัสเคส ' + data.data[0].DEAD_CONSO_REPORT_ID,
+                        content: 'อายุ ' + (data.data[0].Age ?? '-') + ' ปี, ' +
+                            'เพศ' + (sex ?? 'ไม่ทราบ') + '<br>' +
+                            'พาหนะ' + (data.data[0].TypeMotor ?? 'ไม่ทราบ'),
                         position: location,
                     });
                     infowindow.open(map);
@@ -663,8 +699,8 @@
     <!-- [End] Modal -->
 
     <!-- [Start] Google Map -->
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script>
+    {{-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script> --}}
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script>
         initMap();
@@ -683,7 +719,12 @@
             });
 
             setTimeout(function() { // แก้บัค marker รวมกันเป็นก้อน
-                map.setZoom(8);
+                if (risk_point2) {
+                    map.setZoom(18);
+
+                } else {
+                    map.setZoom(8);
+                }
             }, 1000);
 
             const markers = []; // ตัวแปรเอาไว้สร้าง Clusterer
@@ -700,9 +741,17 @@
                     icon: "{{ asset('assets/images/icons/dead.png') }}",
                     title: integration_final.DEAD_CONSO_REPORT_ID,
                 });
+                var sex = null;
+                if (integration_final.Sex == 1) {
+                    sex = 'ชาย';
+                } else if (integration_final.Sex == 2) {
+                    sex = 'หญิง';
+                }
                 google.maps.event.addListener(marker, 'click', function() {
                     var infowindow = new google.maps.InfoWindow({
-                        content: 'รหัสเคส ' + integration_final.DEAD_CONSO_REPORT_ID,
+                        content: 'อายุ ' + (integration_final.Age ?? '-') + ' ปี, ' +
+                            'เพศ' + (sex ?? 'ไม่ทราบ') + '<br>' +
+                            'พาหนะ' + (integration_final.TypeMotor ?? 'ไม่ทราบ'),
                         position: location,
                     });
                     infowindow.open(map);
