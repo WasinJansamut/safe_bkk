@@ -68,7 +68,7 @@
             </div>
 
             <!-- [Start] Time Chart -->
-            <div class="col-sm-12 col-md-6 @if (!$google_map_street_view) col-lg-4 @endif">
+            <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
@@ -88,7 +88,7 @@
             <!-- [End] Time Chart -->
 
             <!-- [Start] Age Chart -->
-            <div class="col-sm-12 col-md-6 @if (!$google_map_street_view) col-lg-4 @endif">
+            <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
@@ -108,7 +108,7 @@
             <!-- [End] Age Chart -->
 
             <!-- [Start] Vehicle Chart -->
-            <div class="col-sm-12 col-md-6 @if (!$google_map_street_view) col-lg-4 @endif">
+            <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
                 <div class="card">
                     <div class="card-header">
                         <div class="header-title">
@@ -128,7 +128,7 @@
             <!-- [End] Vehicle Chart -->
 
             <!-- [Start] Image -->
-            @if ($google_map_street_view)
+            @if ($risk_point2)
                 <div class="col-sm-12 col-md-6">
                     <div class="card">
                         <div class="card-header">
@@ -140,7 +140,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <img src="{{ asset('upload/' . $risk_point->cluster . '.png') ?? '' }}" width="100%">
+                            <img src="{{ asset('upload/' . $risk_point2->cluster . '.png') ?? '' }}" width="100%">
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
             <!-- [End] Image -->
 
             <!-- [Start] Google Map  -->
-            <div class="col-sm-12 @if ($google_map_street_view) col-md-6 @endif">
+            <div class="col-sm-12 @if ($risk_point2) col-md-6 @endif">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between flex-wrap">
                         <div class="header-title">
@@ -166,7 +166,7 @@
             <!-- [End] Google Map -->
 
             <!-- [Start] Google Map Street View -->
-            @if ($google_map_street_view)
+            @if ($risk_point2)
                 <div class="col-sm-12 col-md-6">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between flex-wrap">
@@ -570,7 +570,7 @@
                 });
                 google.maps.event.addListener(marker, 'click', function() {
                     var infowindow = new google.maps.InfoWindow({
-                        content: data.data[0].DEAD_CONSO_REPORT_ID,
+                        content: 'รหัสเคส ' + data.data[0].DEAD_CONSO_REPORT_ID,
                         position: location,
                     });
                     infowindow.open(map);
@@ -600,59 +600,59 @@
                 // });
                 var detail = '<div class="row">';
                 detail += '<div class="col-12">รหัสเคส : ' +
-                    data.data[0].DEAD_CONSO_REPORT_ID + '</div>';
+                    (data.data[0].DEAD_CONSO_REPORT_ID ?? '-') + '</div>';
                 detail += '<div class="col-12">ปีที่เสียชีวิต : ' +
-                    data.data[0].DEAD_YEAR + '</div>';
+                    (data.data[0].DEAD_YEAR ?? '-') + '</div>';
                 detail += '<div class="col-12">AccNo : ' +
-                    data.data[0].AccNo + '</div>';
+                    (data.data[0].AccNo ?? '-') + '</div>';
                 detail += '<div class="col-12">อายุ : ' +
-                    data.data[0].Age + '</div>';
+                    (data.data[0].Age ?? '-') + '</div>';
                 detail += '<div class="col-12">เพศ : ' +
-                    data.data[0].Sex + '</div>';
+                    (data.data[0].Sex ?? '-') + '</div>';
                 detail += '<div class="col-12">ตำบล : ' +
-                    data.data[0].Tumbol + '</div>';
+                    (data.data[0].Tumbol ?? '-') + '</div>';
                 detail += '<div class="col-12">อำเภอ : ' +
-                    data.data[0].District + '</div>';
+                    (data.data[0].District ?? '-') + '</div>';
                 detail += '<div class="col-12">จังหวัด : ' +
-                    data.data[0].Province + '</div>';
+                    (data.data[0].Province ?? '-') + '</div>';
                 detail += '<div class="col-12">แอลกอฮอล์ : ' +
-                    data.data[0].RiskAlgohol + '</div>';
+                    (data.data[0].RiskAlgohol ?? '-') + '</div>';
                 detail += '<div class="col-12">หมวกกันน็อค : ' +
-                    data.data[0].RiskHelmet + '</div>';
+                    (data.data[0].RiskHelmet ?? '-') + '</div>';
                 detail += '<div class="col-12">เข็มขัดนิรภัย : ' +
-                    data.data[0].RiskSafetyBelt + '</div>';
+                    (data.data[0].RiskSafetyBelt ?? '-') + '</div>';
                 detail += '<div class="col-12">วันที่เสียชีวิต (พ.ศ.) : ' +
-                    data.data[0].DeadDate + '</div>';
+                    (data.data[0].DeadDate ?? '-') + '</div>';
                 detail += '<div class="col-12">วันที่เสียชีวิต (ค.ศ.) : ' +
-                    data.data[0].DeadDate_en + '</div>';
+                    (data.data[0].DeadDate_en ?? '-') + '</div>';
                 detail += '<div class="col-12">VictimNO : ' +
-                    data.data[0].VictimNO + '</div>';
+                    (data.data[0].VictimNO ?? '-') + '</div>';
                 detail += '<div class="col-12">CarProv : ' +
-                    data.data[0].CarProv + '</div>';
+                    (data.data[0].CarProv ?? '-') + '</div>';
                 detail += '<div class="col-12">ประเภทพาหนะ : ' +
-                    data.data[0].TypeMotor + '</div>';
+                    (data.data[0].TypeMotor ?? '-') + '</div>';
                 detail += '<div class="col-12">ยี่ห้อพาหนะ : ' +
-                    data.data[0].CarBand + '</div>';
+                    (data.data[0].CarBand ?? '-') + '</div>';
                 detail += '<div class="col-12">DrvAddProv : ' +
-                    data.data[0].DrvAddProv + '</div>';
+                    (data.data[0].DrvAddProv ?? '-') + '</div>';
                 detail += '<div class="col-12">TpNo : ' +
-                    data.data[0].TpNo + '</div>';
+                    (data.data[0].TpNo ?? '-') + '</div>';
                 detail += '<div class="col-12">DateRec : ' +
-                    data.data[0].DateRec + '</div>';
+                    (data.data[0].DateRec ?? '-') + '</div>';
                 detail += '<div class="col-12">TimeRec : ' +
-                    data.data[0].TimeRec + '</div>';
+                    (data.data[0].TimeRec ?? '-') + '</div>';
                 detail += '<div class="col-12">เขต : ' +
-                    data.data[0].AccSubDist + '</div>';
+                    (data.data[0].AccSubDist ?? '-') + '</div>';
                 detail += '<div class="col-12">แขวง : ' +
-                    data.data[0].AccDist + '</div>';
+                    (data.data[0].AccDist ?? '-') + '</div>';
                 detail += '<div class="col-12">AccProv : ' +
-                    data.data[0].AccProv + '</div>';
+                    (data.data[0].AccProv ?? '-') + '</div>';
                 detail += '<div class="col-12">ละติจูด : ' +
-                    data.data[0].Acc_lat + '</div>';
+                    (data.data[0].Acc_lat ?? '-') + '</div>';
                 detail += '<div class="col-12">ลองติจูด : ' +
-                    data.data[0].Acc_long + '</div>';
+                    (data.data[0].Acc_long ?? '-') + '</div>';
                 detail += '<div class="col-12">NCAUSE : ' +
-                    data.data[0].NCAUSE + '</div>';
+                    (data.data[0].NCAUSE ?? '-') + '</div>';
                 detail += '</div>';
                 detail += '</div>';
                 $('#modal_detail').html(detail);
@@ -663,8 +663,8 @@
     <!-- [End] Modal -->
 
     <!-- [Start] Google Map -->
-    {{-- <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script> --}}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script>
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script>
         initMap();
@@ -672,12 +672,12 @@
         function initMap() {
             // สร้างตัวแปร JavaScript จากข้อมูลที่รับมาจาก Laravel Blade
             var integration_finals = {!! json_encode($integration_finals) !!};
-            var google_map_street_view = {!! json_encode($google_map_street_view) !!};
+            var risk_point2 = {!! json_encode($risk_point2) !!};
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {
-                    lat: google_map_street_view ? Number(integration_finals[0].Acc_lat) : 13.6722876,
-                    lng: google_map_street_view ? Number(integration_finals[0].Acc_long) : 100.3083531
+                    lat: risk_point2 ? Number(integration_finals[0].Acc_lat) : 13.6722876,
+                    lng: risk_point2 ? Number(integration_finals[0].Acc_long) : 100.3083531
                 },
                 zoom: 11,
             });
@@ -702,7 +702,7 @@
                 });
                 google.maps.event.addListener(marker, 'click', function() {
                     var infowindow = new google.maps.InfoWindow({
-                        content: integration_final.DEAD_CONSO_REPORT_ID,
+                        content: 'รหัสเคส ' + integration_final.DEAD_CONSO_REPORT_ID,
                         position: location,
                     });
                     infowindow.open(map);
@@ -716,11 +716,11 @@
             });
 
             // [Start] Google Map Street View
-            if (google_map_street_view) {
+            if (risk_point2) {
                 var panoramaOptions = {
                     position: {
-                        lat: Number(google_map_street_view.acc_lat),
-                        lng: Number(google_map_street_view.acc_long)
+                        lat: Number(risk_point2.acc_lat),
+                        lng: Number(risk_point2.acc_long)
                     },
                     pov: {
                         heading: 34,

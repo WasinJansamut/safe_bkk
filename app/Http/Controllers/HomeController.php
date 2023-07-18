@@ -19,15 +19,13 @@ class HomeController extends Controller
     {
         $id_risk_point = $request->id;
         $risk_points = Risk_points::orderBy('remark')->get();
-        $google_map_street_view = NULL;
+        $risk_point2 = NULL;
         $case_list = [];
         // เก็บค่า case_list ใน Array
         if ($id_risk_point) {
             $search = 1;
-            $risk_point = Risk_points::findOrFail($id_risk_point);
-            $case_list = explode(",", $risk_point->case_list);
-
-            $google_map_street_view = $risk_point; // ไว้แสดง Google Map Street View
+            $risk_point2 = Risk_points::findOrFail($id_risk_point);
+            $case_list = explode(",", $risk_point2->case_list);
         }
         /* รายการแต่ละ Case / Google Map */
         // Cache::forget("cached_integration_final_{$id_risk_point}");
@@ -169,7 +167,8 @@ class HomeController extends Controller
             'times' => $oclock,
             'vehicles' => $vehicles,
         ];
-        return view('risk_point', compact('risk_points' , 'google_map_street_view', 'integration_finals', 'count', 'id_risk_point'));
+
+        return view('risk_point', compact('risk_points' , 'risk_point2', 'integration_finals', 'count', 'id_risk_point'));
     }
 
     public function integration_final($id)
