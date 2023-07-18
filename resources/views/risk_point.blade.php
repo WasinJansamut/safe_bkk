@@ -346,12 +346,11 @@
                 chart: {
                     type: 'bar',
                     height: 435,
-                    width: datas.length * 40,
+                    width: datas.length * 80,
                 },
                 colors: ["#3a57e8"],
                 plotOptions: {
                     bar: {
-                        columnWidth: '100%',
                         borderRadius: 10,
                         dataLabels: {
                             position: 'top', // top, center, bottom
@@ -451,7 +450,7 @@
                 chart: {
                     type: 'bar',
                     height: 435,
-                    width: datas.length * 40,
+                    width: datas.length * 80,
                 },
                 colors: ["#3a57e8"],
                 plotOptions: {
@@ -623,7 +622,7 @@
                 chart: {
                     type: 'bar',
                     height: 435,
-                    width: datas.length * 40,
+                    width: datas.length * 80,
                 },
                 colors: ["#3a57e8"],
                 plotOptions: {
