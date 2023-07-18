@@ -333,10 +333,10 @@
             const label = [];
             const amount = [];
             datas.forEach(function(data) {
-                // if (data.label != 'อื่นๆ') {
-                label.push(data.label);
-                amount.push(data.count);
-                // }
+                if (data.label != 'อื่นๆ') {
+                    label.push(data.label);
+                    amount.push(data.count);
+                }
             })
             const options = {
                 series: [{
