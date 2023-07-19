@@ -47,7 +47,7 @@
             </span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            {{-- <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
                         <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none"
@@ -147,7 +147,7 @@
                         </ul>
                     </li>
                 @endif
-            </ul>
+            </ul> --}}
         </div>
     </div>
 </nav>

@@ -359,37 +359,27 @@
                 },
                 dataLabels: {
                     enabled: true,
-                    offsetY: -20,
+                    offsetY: -15,
                     style: {
-                        fontSize: '7pt',
-                        colors: ["#304758"]
-                    }
-                },
-                stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ['transparent']
+                        fontSize: '8pt',
+                        colors: ["#304758"],
+                    },
+                    background: {
+                        enabled: true,
+                        padding: 5,
+                        borderRadius: 5,
+                        borderWidth: 1,
+                        borderColor: '#FFFFFF',
+                        opacity: 0.8,
+                        dropShadow: {
+                            enabled: false,
+                            color: '#000000',
+                            opacity: 0.45
+                        }
+                    },
                 },
                 xaxis: {
                     categories: label,
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 0.4,
-                                opacityTo: 0.5,
-                            }
-                        }
-                    },
                     labels: {
                         minHeight: 30,
                         maxHeight: 30,
@@ -401,12 +391,6 @@
 
                 },
                 yaxis: {
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false,
-                    },
                     labels: {
                         show: false,
                         // minWidth: 25,
@@ -463,37 +447,27 @@
                 },
                 dataLabels: {
                     enabled: true,
-                    offsetY: -20,
+                    offsetY: -15,
                     style: {
-                        fontSize: '7pt',
-                        colors: ["#304758"]
-                    }
-                },
-                stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ['transparent']
+                        fontSize: '8pt',
+                        colors: ["#304758"],
+                    },
+                    background: {
+                        enabled: true,
+                        padding: 5,
+                        borderRadius: 5,
+                        borderWidth: 1,
+                        borderColor: '#FFFFFF',
+                        opacity: 0.8,
+                        dropShadow: {
+                            enabled: false,
+                            color: '#000000',
+                            opacity: 0.45
+                        }
+                    },
                 },
                 xaxis: {
                     categories: label,
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 0.4,
-                                opacityTo: 0.5,
-                            }
-                        }
-                    },
                     labels: {
                         minHeight: 30,
                         maxHeight: 30,
@@ -505,12 +479,6 @@
 
                 },
                 yaxis: {
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false,
-                    },
                     labels: {
                         show: false,
                         // minWidth: 25,
@@ -528,74 +496,6 @@
                     }
                 },
             };
-
-
-
-
-
-            // const options = {
-            //     series: [{
-            //         name: 'ข้อมูล',
-            //         data: amount
-            //     }],
-            //     chart: {
-            //         type: 'bar',
-            //         height: 435,
-            //         width: 900,
-            //         stacked: true,
-            //         toolbar: {
-            //             show: false
-            //         }
-            //     },
-            //     colors: ["#3a57e8"],
-            //     plotOptions: {
-            //         bar: {
-            //             horizontal: false,
-            //             columnWidth: '100%',
-            //         },
-            //     },
-            //     legend: {
-            //         show: false
-            //     },
-            //     dataLabels: {
-            //         enabled: false
-            //     },
-            //     stroke: {
-            //         show: true,
-            //         width: 2,
-            //         colors: ['transparent']
-            //     },
-            //     xaxis: {
-            //         categories: label,
-            //         labels: {
-            //             minHeight: 30,
-            //             maxHeight: 30,
-            //             rotate: -90,
-            //             style: {
-            //                 fontSize: "7pt",
-            //             },
-            //         }
-            //     },
-            //     yaxis: {
-            //         title: {
-            //             text: ''
-            //         },
-            //         labels: {
-            //             minWidth: 25,
-            //             // maxWidth: 25,
-            //             style: {
-            //                 colors: "#8A92A6",
-            //             },
-            //         },
-            //     },
-            //     tooltip: {
-            //         y: {
-            //             formatter: function(val) {
-            //                 return "ทั้งหมด " + val.toLocaleString() + " ราย"
-            //             }
-            //         }
-            //     }
-            // };
             const chart = new ApexCharts(document.querySelector("#age_chart"), options);
             chart.render();
         }
@@ -614,6 +514,7 @@
                     amount.push(data.count);
                 }
             })
+            console.log('จำนวน : ' + label.length);
             const options = {
                 series: [{
                     name: 'ข้อมูล',
@@ -635,37 +536,27 @@
                 },
                 dataLabels: {
                     enabled: true,
-                    offsetY: -20,
+                    offsetY: -15,
                     style: {
-                        fontSize: '7pt',
-                        colors: ["#304758"]
-                    }
-                },
-                stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ['transparent']
+                        fontSize: '8pt',
+                        colors: ["#304758"],
+                    },
+                    background: {
+                        enabled: true,
+                        padding: 5,
+                        borderRadius: 5,
+                        borderWidth: 1,
+                        borderColor: '#FFFFFF',
+                        opacity: 0.8,
+                        dropShadow: {
+                            enabled: false,
+                            color: '#000000',
+                            opacity: 0.45
+                        }
+                    },
                 },
                 xaxis: {
                     categories: label,
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [0, 100],
-                                opacityFrom: 0.4,
-                                opacityTo: 0.5,
-                            }
-                        }
-                    },
                     labels: {
                         minHeight: 30,
                         maxHeight: 30,
@@ -677,12 +568,6 @@
 
                 },
                 yaxis: {
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false,
-                    },
                     labels: {
                         show: false,
                         // minWidth: 25,
