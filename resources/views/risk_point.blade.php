@@ -68,7 +68,7 @@
             </div>
 
             <!-- [Start] Time Chart -->
-            <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
+            <div class="col-sm-12 col-md-5">
                 <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-header">
                         <div class="header-title">
@@ -88,7 +88,7 @@
             <!-- [End] Time Chart -->
 
             <!-- [Start] Age Chart -->
-            <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
+            <div class="col-sm-12 col-md-5">
                 <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-header">
                         <div class="header-title">
@@ -108,7 +108,7 @@
             <!-- [End] Age Chart -->
 
             <!-- [Start] Vehicle Chart -->
-            <div class="col-sm-12 col-md-6 @if (!$risk_point2) col-lg-4 @endif">
+            <div class="col-sm-12 col-md-2">
                 <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-header">
                         <div class="header-title">
@@ -129,7 +129,7 @@
 
             <!-- [Start] Image -->
             @if ($risk_point2)
-                <div class="col-sm-12 col-md-6">
+                <div class="col-12">
                     <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-header">
                             <div class="header-title">
@@ -330,8 +330,8 @@
     <script>
         if (document.querySelectorAll('#time_chart').length) {
             var datas = {!! json_encode($count['times']) !!};
-            const label = [];
-            const amount = [];
+            var label = [];
+            var amount = [];
             datas.forEach(function(data) {
                 if (data.label != 'อื่นๆ') {
                     label.push(data.label);
@@ -346,9 +346,23 @@
                 chart: {
                     type: 'bar',
                     height: 435,
-                    width: datas.length * 80,
+                    width: '100%',
+                    // width: datas.length * 80,
                 },
-                colors: ["#3a57e8"],
+                colors: [
+                    function({
+                        value,
+                        seriesIndex,
+                        w
+                    }) {
+
+                        if (value >= Math.max.apply(Math, amount)) {
+                            return '#E83A3A'; // แดง
+                        } else {
+                            return '#3A57E8'; // ฟ้า
+                        }
+                    }
+                ],
                 plotOptions: {
                     bar: {
                         borderRadius: 10,
@@ -418,14 +432,14 @@
     <script>
         if (document.querySelectorAll('#age_chart').length) {
             var datas = {!! json_encode($count['ages']) !!};
-            const label = [];
-            const amount = [];
+            var label = [];
+            var amount = [];
             datas.forEach(function(data) {
                 if (data.label != 'อื่นๆ') {
                     label.push(data.label);
                     amount.push(data.count);
                 }
-            })
+            });
             const options = {
                 series: [{
                     name: 'ข้อมูล',
@@ -434,9 +448,20 @@
                 chart: {
                     type: 'bar',
                     height: 435,
-                    width: datas.length * 80,
+                    width: '100%',
+                    // width: datas.length * 80,
                 },
-                colors: ["#3a57e8"],
+                colors: [
+                    function({
+                        value
+                    }) {
+                        if (value >= Math.max.apply(Math, amount)) {
+                            return '#E83A3A'; // แดง
+                        } else {
+                            return '#3A57E8'; // ฟ้า
+                        }
+                    }
+                ],
                 plotOptions: {
                     bar: {
                         borderRadius: 10,
@@ -506,85 +531,141 @@
     <script>
         if (document.querySelectorAll('#vehicle_chart').length) {
             var datas = {!! json_encode($count['vehicles']) !!};
-            const label = [];
-            const amount = [];
+            var detail = [];
+            var amount = [];
             datas.forEach(function(data) {
                 if (data.label != 'อื่นๆ') {
-                    label.push(data.label);
+                    var obj = {
+                        x: data.label,
+                        y: data.count
+                    };
+                    detail.push(obj);
                     amount.push(data.count);
                 }
-            })
-            console.log('จำนวน : ' + label.length);
+            });
+            console.log(Math.max.apply(Math, amount));
             const options = {
-                series: [{
-                    name: 'ข้อมูล',
-                    data: amount
-                }],
                 chart: {
-                    type: 'bar',
+                    type: "treemap",
                     height: 435,
-                    width: datas.length * 80,
+                    width: '100%',
                 },
-                colors: ["#3a57e8"],
+                series: [{
+                    data: detail,
+                }],
                 plotOptions: {
-                    bar: {
-                        borderRadius: 10,
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    offsetY: -15,
-                    style: {
-                        fontSize: '8pt',
-                        colors: ["#304758"],
-                    },
-                    background: {
-                        enabled: true,
-                        padding: 5,
-                        borderRadius: 5,
-                        borderWidth: 1,
-                        borderColor: '#FFFFFF',
-                        opacity: 0.8,
-                        dropShadow: {
-                            enabled: false,
-                            color: '#000000',
-                            opacity: 0.45
+                    treemap: {
+                        colorScale: {
+                            ranges: [{
+                                    from: Math.max.apply(Math, amount),
+                                    to: Math.max.apply(Math, amount),
+                                    color: '#E83A3A' // แดง
+                                },
+                                {
+                                    from: 0,
+                                    to: Math.max.apply(Math, amount) - 1,
+                                    color: '#3A57E8' // ฟ้า
+                                }
+                            ]
                         }
-                    },
-                },
-                xaxis: {
-                    categories: label,
-                    labels: {
-                        minHeight: 30,
-                        maxHeight: 30,
-                        rotate: -90,
-                        style: {
-                            fontSize: "7pt",
-                        },
-                    },
+                    }
+                }
+            }
 
-                },
-                yaxis: {
-                    labels: {
-                        show: false,
-                        // minWidth: 25,
-                        // // maxWidth: 25,
-                        // style: {
-                        //     colors: "#8A92A6",
-                        // },
-                    },
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(val) {
-                            return "ทั้งหมด " + val.toLocaleString() + " ราย"
-                        }
-                    }
-                },
-            };
+
+
+
+
+
+
+            // var label = [];
+            // var amount = [];
+            // datas.forEach(function(data) {
+            //     if (data.label != 'อื่นๆ') {
+            //         label.push(data.label);
+            //         amount.push(data.count);
+            //     }
+            // });
+            // const options = {
+            //     series: [{
+            //         name: 'ข้อมูล',
+            //         data: amount
+            //     }],
+            //     chart: {
+            //         type: 'bar',
+            //         height: 435,
+            //         width: '100%',
+            //         // width: datas.length * 80,
+            //     },
+            //     colors: [
+            //         function({
+            //             value
+            //         }) {
+            //             if (value >= Math.max.apply(Math, amount)) {
+            //                 return '#E83A3A'; // แดง
+            //             } else {
+            //                 return '#3A57E8'; // ฟ้า
+            //             }
+            //         }
+            //     ],
+            //     plotOptions: {
+            //         bar: {
+            //             borderRadius: 10,
+            //             dataLabels: {
+            //                 position: 'top', // top, center, bottom
+            //             },
+            //         }
+            //     },
+            //     dataLabels: {
+            //         enabled: true,
+            //         offsetY: -15,
+            //         style: {
+            //             fontSize: '8pt',
+            //             colors: ["#304758"],
+            //         },
+            //         background: {
+            //             enabled: true,
+            //             padding: 5,
+            //             borderRadius: 5,
+            //             borderWidth: 1,
+            //             borderColor: '#FFFFFF',
+            //             opacity: 0.8,
+            //             dropShadow: {
+            //                 enabled: false,
+            //                 color: '#000000',
+            //                 opacity: 0.45
+            //             }
+            //         },
+            //     },
+            //     xaxis: {
+            //         categories: label,
+            //         labels: {
+            //             minHeight: 30,
+            //             maxHeight: 30,
+            //             rotate: -90,
+            //             style: {
+            //                 fontSize: "7pt",
+            //             },
+            //         },
+            //     },
+            //     yaxis: {
+            //         labels: {
+            //             show: false,
+            //             // minWidth: 25,
+            //             // // maxWidth: 25,
+            //             // style: {
+            //             //     colors: "#8A92A6",
+            //             // },
+            //         },
+            //     },
+            //     tooltip: {
+            //         y: {
+            //             formatter: function(val) {
+            //                 return "ทั้งหมด " + val.toLocaleString() + " ราย"
+            //             }
+            //         }
+            //     },
+            // };
             const chart = new ApexCharts(document.querySelector("#vehicle_chart"), options);
             chart.render();
         }

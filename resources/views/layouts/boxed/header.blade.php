@@ -23,13 +23,13 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item me-1">
-                        <a class="nav-link {{ request()->is('risk_point') ? 'active' : '' }}"
+                        <a class="nav-link @if (Request::is('risk_point*')) active @endif"
                             href="{{ route('risk_point') }}">
                             จุดเสี่ยง
                         </a>
                     </li>
                     <li class="nav-item me-1">
-                        <a class="nav-link {{ request()->is('working_group') ? 'active' : '' }}"
+                        <a class="nav-link @if (Request::is('working_group*')) active @endif"
                             href="{{ route('working_group') }}">
                             คณะทำงาน
                         </a>
