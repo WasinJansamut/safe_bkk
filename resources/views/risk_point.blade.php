@@ -36,30 +36,6 @@
 @section('content')
     <div class="conatiner-fluid content-inner pb-0">
         <div class="row">
-
-
-
-
-            <div class="col-12">
-                <div class="card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="card-body">
-                        <div class="bookshelf">
-                            <div class="book">
-                                <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png " alt="PDF">
-                                <p>asdsdasdasdasdsdasdasdasdsdasdasd</p>
-                            </div>
-                            <div class="book">
-                                <img src="https://cdn-icons-png.flaticon.com/512/136/136522.png " alt="PDF">
-                                <p>ad</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
             <div class="col-12">
                 <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-body">
@@ -184,15 +160,15 @@
             </div>
             <!-- [End] Vehicle Chart -->
 
-            <!-- [Start] Image -->
+            <!-- [Start] บทวิเคราะห์ -->
             @if ($risk_point2)
                 <div class="col-12">
                     <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-header">
                             <div class="header-title">
                                 <h4 class="card-title">
-                                    <i class="far fa-image me-1"></i>
-                                    รูปภาพ
+                                    <i class="fas fa-chart-line me-1"></i>
+                                    บทวิเคราะห์
                                 </h4>
                             </div>
                         </div>
@@ -206,7 +182,7 @@
                     </div>
                 </div>
             @endif
-            <!-- [End] Image -->
+            <!-- [End] บทวิเคราะห์ -->
 
             <!-- [Start] Google Map  -->
             <div class="col-sm-12 @if ($risk_point2) col-md-6 @endif">
@@ -246,8 +222,8 @@
             @endif
             <!-- [End] Google Map Street View -->
 
-            <!-- [Start] รายการแต่ละ Case -->
             @if ($id_risk_point)
+                <!-- [Start] รายการแต่ละ Case -->
                 <div class="col-12">
                     <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-header d-flex justify-content-between flex-wrap">
@@ -310,8 +286,39 @@
                         </div>
                     </div>
                 </div>
+                <!-- [End] รายการแต่ละ Case -->
+
+
+                <div class="col-12">
+                    <div class="card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="card-header d-flex justify-content-between flex-wrap">
+                            <div class="header-title">
+                                <h4 class="card-title">
+                                    <i class="fas fa-book me-1"></i>
+                                    ไฟล์
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="bookshelf">
+                                <div class="book">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png">
+                                    <p>ตัวอย่าง</p>
+                                </div>
+                                <div class="book">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/136/136522.png">
+                                    <p>ตัวอย่าง</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
             @endif
-            <!-- [End] รายการแต่ละ Case -->
+
+
         </div>
     </div>
 @endsection
@@ -412,7 +419,7 @@
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'จำนวน (คน)'
+                        text: 'จำนวน (ราย)'
                     }
                 },
                 plotOptions: {
@@ -421,7 +428,7 @@
                         pointPadding: 0.1,
                         borderWidth: 0,
                         groupPadding: 0,
-                        // pointWidth: 20
+                        pointWidth: 17
                     }
                 },
                 series: [{
@@ -430,6 +437,11 @@
                 colorAxis: {
                     minColor: '#3A57E8', // ฟ้า
                     maxColor: '#FF0000', // แดง
+                },
+                tooltip: {
+                    formatter: function() {
+                        return this.x + '<br><b>ข้อมูล ' + this.y + ' ราย</b>';
+                    }
                 },
                 credits: {
                     enabled: false
@@ -469,7 +481,7 @@
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'จำนวน (คน)'
+                        text: 'จำนวน (ราย)'
                     }
                 },
                 plotOptions: {
@@ -478,7 +490,7 @@
                         pointPadding: 0.1,
                         borderWidth: 0,
                         groupPadding: 0,
-                        // pointWidth: 20
+                        pointWidth: 17
                     }
                 },
                 series: [{
@@ -487,6 +499,11 @@
                 colorAxis: {
                     minColor: '#3A57E8', // ฟ้า
                     maxColor: '#FF0000', // แดง
+                },
+                tooltip: {
+                    formatter: function() {
+                        return this.x + '<br><b>ข้อมูล ' + this.y + ' ราย</b>';
+                    }
                 },
                 credits: {
                     enabled: false
@@ -526,7 +543,7 @@
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'จำนวน (คน)'
+                        text: 'จำนวน (ราย)'
                     }
                 },
                 plotOptions: {
@@ -535,7 +552,7 @@
                         pointPadding: 0.1,
                         borderWidth: 0,
                         groupPadding: 0,
-                        // pointWidth: 20
+                        pointWidth: 17
                     }
                 },
                 series: [{
@@ -544,6 +561,11 @@
                 colorAxis: {
                     minColor: '#3A57E8', // ฟ้า
                     maxColor: '#FF0000', // แดง
+                },
+                tooltip: {
+                    formatter: function() {
+                        return this.x + '<br><b>ข้อมูล ' + this.y + ' ราย</b>';
+                    }
                 },
                 credits: {
                     enabled: false

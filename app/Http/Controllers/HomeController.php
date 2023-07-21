@@ -17,7 +17,9 @@ class HomeController extends Controller
 
     public function risk_point(Request $request)
     {
-        $id_risk_point = $request->id;
+        set_time_limit(0);
+        ini_set('memory_limit', '-1');
+           $id_risk_point = $request->id;
         $risk_points = Risk_points::orderBy('total_death', 'DESC')->get();
         $risk_point2 = NULL;
         $case_list = [];
