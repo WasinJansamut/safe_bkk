@@ -338,92 +338,47 @@
                     amount.push(data.count);
                 }
             })
-            const options = {
+            Highcharts.chart('time_chart', {
+                chart: {
+                    type: 'column',
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: label,
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Countries'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'จำนวน (คน)'
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        borderRadius: '50%',
+                        pointPadding: 0.1,
+                        borderWidth: 0,
+                        groupPadding: 0,
+                        // pointWidth: 20
+                    }
+                },
                 series: [{
-                    name: 'ข้อมูล',
                     data: amount
                 }],
-                chart: {
-                    type: 'bar',
-                    height: 435,
-                    width: '100%',
-                    // width: datas.length * 80,
+                colorAxis: {
+                    minColor: '#3A57E8',
+                    maxColor: '#E83A3A',
                 },
-                colors: [
-                    function({
-                        value,
-                        seriesIndex,
-                        w
-                    }) {
-
-                        if (value >= Math.max.apply(Math, amount)) {
-                            return '#E83A3A'; // แดง
-                        } else {
-                            return '#3A57E8'; // ฟ้า
-                        }
-                    }
-                ],
-                plotOptions: {
-                    bar: {
-                        borderRadius: 10,
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
-                    }
+                credits: {
+                    enabled: false
                 },
-                dataLabels: {
-                    enabled: true,
-                    offsetY: -15,
-                    style: {
-                        fontSize: '8pt',
-                        colors: ["#304758"],
-                    },
-                    background: {
-                        enabled: true,
-                        padding: 5,
-                        borderRadius: 5,
-                        borderWidth: 1,
-                        borderColor: '#FFFFFF',
-                        opacity: 0.8,
-                        dropShadow: {
-                            enabled: false,
-                            color: '#000000',
-                            opacity: 0.45
-                        }
-                    },
-                },
-                xaxis: {
-                    categories: label,
-                    labels: {
-                        minHeight: 30,
-                        maxHeight: 30,
-                        rotate: -90,
-                        style: {
-                            fontSize: "7pt",
-                        },
-                    },
-
-                },
-                yaxis: {
-                    labels: {
-                        show: false,
-                        // minWidth: 25,
-                        // // maxWidth: 25,
-                        // style: {
-                        //     colors: "#8A92A6",
-                        // },
-                    },
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(val) {
-                            return "ทั้งหมด " + val.toLocaleString() + " ราย"
-                        }
-                    }
-                },
-            };
-            const chart = new ApexCharts(document.querySelector("#time_chart"), options);
-            chart.render();
+                legend: false,
+            });
         }
     </script>
     <!-- [End] Time Chart -->
@@ -440,89 +395,47 @@
                     amount.push(data.count);
                 }
             });
-            const options = {
+            Highcharts.chart('age_chart', {
+                chart: {
+                    type: 'column',
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: label,
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Countries'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'จำนวน (คน)'
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        borderRadius: '50%',
+                        pointPadding: 0.1,
+                        borderWidth: 0,
+                        groupPadding: 0,
+                        // pointWidth: 20
+                    }
+                },
                 series: [{
-                    name: 'ข้อมูล',
                     data: amount
                 }],
-                chart: {
-                    type: 'bar',
-                    height: 435,
-                    width: '100%',
-                    // width: datas.length * 80,
+                colorAxis: {
+                    minColor: '#3A57E8',
+                    maxColor: '#E83A3A',
                 },
-                colors: [
-                    function({
-                        value
-                    }) {
-                        if (value >= Math.max.apply(Math, amount)) {
-                            return '#E83A3A'; // แดง
-                        } else {
-                            return '#3A57E8'; // ฟ้า
-                        }
-                    }
-                ],
-                plotOptions: {
-                    bar: {
-                        borderRadius: 10,
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
-                    }
+                credits: {
+                    enabled: false
                 },
-                dataLabels: {
-                    enabled: true,
-                    offsetY: -15,
-                    style: {
-                        fontSize: '8pt',
-                        colors: ["#304758"],
-                    },
-                    background: {
-                        enabled: true,
-                        padding: 5,
-                        borderRadius: 5,
-                        borderWidth: 1,
-                        borderColor: '#FFFFFF',
-                        opacity: 0.8,
-                        dropShadow: {
-                            enabled: false,
-                            color: '#000000',
-                            opacity: 0.45
-                        }
-                    },
-                },
-                xaxis: {
-                    categories: label,
-                    labels: {
-                        minHeight: 30,
-                        maxHeight: 30,
-                        rotate: -90,
-                        style: {
-                            fontSize: "7pt",
-                        },
-                    },
-
-                },
-                yaxis: {
-                    labels: {
-                        show: false,
-                        // minWidth: 25,
-                        // // maxWidth: 25,
-                        // style: {
-                        //     colors: "#8A92A6",
-                        // },
-                    },
-                },
-                tooltip: {
-                    y: {
-                        formatter: function(val) {
-                            return "ทั้งหมด " + val.toLocaleString() + " ราย"
-                        }
-                    }
-                },
-            };
-            const chart = new ApexCharts(document.querySelector("#age_chart"), options);
-            chart.render();
+                legend: false,
+            });
         }
     </script>
     <!-- [End] Age Chart -->
@@ -531,143 +444,55 @@
     <script>
         if (document.querySelectorAll('#vehicle_chart').length) {
             var datas = {!! json_encode($count['vehicles']) !!};
-            var detail = [];
+            var label = [];
             var amount = [];
             datas.forEach(function(data) {
                 if (data.label != 'อื่นๆ') {
-                    var obj = {
-                        x: data.label,
-                        y: data.count
-                    };
-                    detail.push(obj);
+                    label.push(data.label);
                     amount.push(data.count);
                 }
             });
-            console.log(Math.max.apply(Math, amount));
-            const options = {
+            Highcharts.chart('vehicle_chart', {
                 chart: {
-                    type: "treemap",
-                    height: 435,
-                    width: '100%',
+                    type: 'column',
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: label,
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Countries'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'จำนวน (คน)'
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        borderRadius: '50%',
+                        pointPadding: 0.1,
+                        borderWidth: 0,
+                        groupPadding: 0,
+                        // pointWidth: 20
+                    }
                 },
                 series: [{
-                    data: detail,
+                    data: amount
                 }],
-                plotOptions: {
-                    treemap: {
-                        colorScale: {
-                            ranges: [{
-                                    from: Math.max.apply(Math, amount),
-                                    to: Math.max.apply(Math, amount),
-                                    color: '#E83A3A' // แดง
-                                },
-                                {
-                                    from: 0,
-                                    to: Math.max.apply(Math, amount) - 1,
-                                    color: '#3A57E8' // ฟ้า
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-
-
-
-
-
-
-
-            // var label = [];
-            // var amount = [];
-            // datas.forEach(function(data) {
-            //     if (data.label != 'อื่นๆ') {
-            //         label.push(data.label);
-            //         amount.push(data.count);
-            //     }
-            // });
-            // const options = {
-            //     series: [{
-            //         name: 'ข้อมูล',
-            //         data: amount
-            //     }],
-            //     chart: {
-            //         type: 'bar',
-            //         height: 435,
-            //         width: '100%',
-            //         // width: datas.length * 80,
-            //     },
-            //     colors: [
-            //         function({
-            //             value
-            //         }) {
-            //             if (value >= Math.max.apply(Math, amount)) {
-            //                 return '#E83A3A'; // แดง
-            //             } else {
-            //                 return '#3A57E8'; // ฟ้า
-            //             }
-            //         }
-            //     ],
-            //     plotOptions: {
-            //         bar: {
-            //             borderRadius: 10,
-            //             dataLabels: {
-            //                 position: 'top', // top, center, bottom
-            //             },
-            //         }
-            //     },
-            //     dataLabels: {
-            //         enabled: true,
-            //         offsetY: -15,
-            //         style: {
-            //             fontSize: '8pt',
-            //             colors: ["#304758"],
-            //         },
-            //         background: {
-            //             enabled: true,
-            //             padding: 5,
-            //             borderRadius: 5,
-            //             borderWidth: 1,
-            //             borderColor: '#FFFFFF',
-            //             opacity: 0.8,
-            //             dropShadow: {
-            //                 enabled: false,
-            //                 color: '#000000',
-            //                 opacity: 0.45
-            //             }
-            //         },
-            //     },
-            //     xaxis: {
-            //         categories: label,
-            //         labels: {
-            //             minHeight: 30,
-            //             maxHeight: 30,
-            //             rotate: -90,
-            //             style: {
-            //                 fontSize: "7pt",
-            //             },
-            //         },
-            //     },
-            //     yaxis: {
-            //         labels: {
-            //             show: false,
-            //             // minWidth: 25,
-            //             // // maxWidth: 25,
-            //             // style: {
-            //             //     colors: "#8A92A6",
-            //             // },
-            //         },
-            //     },
-            //     tooltip: {
-            //         y: {
-            //             formatter: function(val) {
-            //                 return "ทั้งหมด " + val.toLocaleString() + " ราย"
-            //             }
-            //         }
-            //     },
-            // };
-            const chart = new ApexCharts(document.querySelector("#vehicle_chart"), options);
-            chart.render();
+                colorAxis: {
+                    minColor: '#3A57E8',
+                    maxColor: '#E83A3A',
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: false,
+            });
         }
     </script>
     <!-- [End] Vehicle Chart -->
