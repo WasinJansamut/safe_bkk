@@ -1,8 +1,65 @@
 @extends('layouts.boxed.app')
 @section('page_title', 'จุดเสียง')
+@section('style')
+    <style>
+        .bookshelf {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .book {
+            width: 200px;
+            height: 250px;
+            border: 2px dotted #3A57E8;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .book img {
+            max-width: 80%;
+            max-height: 80%;
+            position: relative;
+            opacity: 0.1;
+        }
+
+        .book p {
+            position: absolute;
+            overflow-wrap: break-word;
+            word-break: break-all;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="conatiner-fluid content-inner pb-0">
         <div class="row">
+
+
+
+
+            <div class="col-12">
+                <div class="card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card-body">
+                        <div class="bookshelf">
+                            <div class="book">
+                                <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png " alt="PDF">
+                                <p>asdsdasdasdasdsdasdasdasdsdasdasd</p>
+                            </div>
+                            <div class="book">
+                                <img src="https://cdn-icons-png.flaticon.com/512/136/136522.png " alt="PDF">
+                                <p>ad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <div class="col-12">
                 <div class="card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-body">
