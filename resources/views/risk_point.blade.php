@@ -371,8 +371,8 @@
                     data: amount
                 }],
                 colorAxis: {
-                    minColor: '#3A57E8',
-                    maxColor: '#E83A3A',
+                    minColor: '#3A57E8', // ฟ้า
+                    maxColor: '#FF0000', // แดง
                 },
                 credits: {
                     enabled: false
@@ -428,8 +428,8 @@
                     data: amount
                 }],
                 colorAxis: {
-                    minColor: '#3A57E8',
-                    maxColor: '#E83A3A',
+                    minColor: '#3A57E8', // ฟ้า
+                    maxColor: '#FF0000', // แดง
                 },
                 credits: {
                     enabled: false
@@ -485,8 +485,8 @@
                     data: amount
                 }],
                 colorAxis: {
-                    minColor: '#3A57E8',
-                    maxColor: '#E83A3A',
+                    minColor: '#3A57E8', // ฟ้า
+                    maxColor: '#FF0000', // แดง
                 },
                 credits: {
                     enabled: false
