@@ -11,7 +11,7 @@
         .book {
             width: 200px;
             height: 250px;
-            border: 2px dotted #3A57E8;
+            /* border: 2px dotted #3A57E8; */
             color: #000000;
             display: flex;
             align-items: center;
@@ -23,12 +23,13 @@
             max-width: 80%;
             max-height: 80%;
             position: relative;
-            opacity: 0.1;
+            opacity: 0.5;
+            box-shadow: 10px 10px 5px #888888;
         }
 
         .book p {
             position: absolute;
-            overflow-wrap: break-word;
+            /* overflow-wrap: break-word; */
             word-break: break-all;
         }
     </style>
@@ -240,11 +241,10 @@
                                     <thead>
                                         <tr class="ligth text-dark text-center align-middle">
                                             <th>รหัสเคส</th>
-                                            <th>วันที่เสียชีวิต</th>
-                                            <th>เวลาที่เสียชีวิต</th>
+                                            <th>วันที่เกิดเหตุ</th>
+                                            <th>เวลาที่เกิดเหตุ</th>
                                             <th>อายุ</th>
                                             <th>เพศ</th>
-                                            <th>เขต</th>
                                             <th>พาหนะ</th>
                                         </tr>
                                     </thead>
@@ -276,7 +276,6 @@
                                                         หญิง
                                                     @endif
                                                 </td>
-                                                <td class="text-dark">{{ $integration_final->AccSubDist ?? '' }}</td>
                                                 <td class="text-dark">{{ $integration_final->TypeMotor ?? '' }}</td>
                                             </tr>
                                         @endforeach
@@ -301,14 +300,37 @@
                         </div>
                         <div class="card-body">
                             <div class="bookshelf">
-                                <div class="book">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png">
-                                    <p>ตัวอย่าง</p>
-                                </div>
-                                <div class="book">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/136/136522.png">
-                                    <p>ตัวอย่าง</p>
-                                </div>
+                                @foreach ($files as $file)
+                                    <a href="{{ asset("upload/doc/{$risk_point2->id}/{$file['name']}") }}" target="_blank">
+                                        <div class="credit-card-widget aos-init aos-animate custom-card-width" data-aos="fade-up" data-aos-delay="900" style="width: 290px;">
+                                            <div class="pb-4 border-0 card-header">
+                                                <div class="p-4 border border-white rounded primary-gradient-card">
+                                                    <div class="book">
+                                                        @if ($file['type'] === 'pdf')
+                                                            <img src="{{ asset('images/pdf.png') }}" alt="PDF">
+                                                        @elseif ($file['type'] === 'ppt')
+                                                            <img src="{{ asset('images/ppt.png') }}" alt="PPT">
+                                                        @elseif ($file['type'] === 'doc')
+                                                            <img src="{{ asset('images/doc.png') }}" alt="DOC">
+                                                        @elseif ($file['type'] === 'zip')
+                                                            <img src="{{ asset('images/zip.png') }}" alt="DOC">
+                                                        @elseif ($file['type'] === 'jpg')
+                                                            <img src="{{ asset('images/image.png') }}" alt="DOC">
+                                                        @elseif ($file['type'] === 'png')
+                                                            <img src="{{ asset('images/image.png') }}" alt="DOC">
+                                                        @else
+                                                            <img src="{{ asset('images/file.png') }}" alt="">
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="text-primary text-center">{{ $file['name'] ?? '' }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -708,8 +730,8 @@
     <!-- [End] Modal -->
 
     <!-- [Start] Google Map -->
-    {{-- <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script> --}}
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap"></script>
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script>
         initMap();
@@ -721,8 +743,8 @@
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {
-                    lat: risk_point2 ? Number(integration_finals[0].Acc_lat) : 13.6722876,
-                    lng: risk_point2 ? Number(integration_finals[0].Acc_long) : 100.3083531
+                    lat: risk_point2 ? Number(integration_finals[0].Acc_lat) : 13.746446991671341,
+                    lng: risk_point2 ? Number(integration_finals[0].Acc_long) : 100.51635883877083
                 },
                 zoom: 11,
             });
@@ -732,7 +754,7 @@
                     map.setZoom(18);
 
                 } else {
-                    map.setZoom(8);
+                    map.setZoom(11);
                 }
             }, 1000);
 

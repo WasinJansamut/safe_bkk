@@ -7,6 +7,8 @@ use App\Models\Risk_points;
 use App\Models\Integration_final;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+
 
 class HomeController extends Controller
 {
@@ -19,7 +21,7 @@ class HomeController extends Controller
     {
         set_time_limit(0);
         ini_set('memory_limit', '-1');
-           $id_risk_point = $request->id;
+        $id_risk_point = $request->id;
         $risk_points = Risk_points::orderBy('total_death', 'DESC')->get();
         $risk_point2 = NULL;
         $case_list = [];
@@ -49,54 +51,81 @@ class HomeController extends Controller
         //     return Integration_final::get();
         // });
         $times = $integration_finals;
-        for ($i=0; $i<=24; $i++) { // สร้างตัวแปร Array เก็บค่า ชั่วโมง
+        for ($i = 0; $i <= 24; $i++) { // สร้างตัวแปร Array เก็บค่า ชั่วโมง
             $oclock[$i]['label'] = '';
             $oclock[$i]['count'] = 0;
         }
         foreach ($times as $time) {
             if ($time->TimeRec != NULL) {
                 $time24 = date('H:i', strtotime($time->TimeRec));
-                if ($time24 >= '00:00' && $time24 <= '00:59') { $oclock[0]['count'] += 1; }
-                else if ($time24 >= '01:00' && $time24 <= '01:59') { $oclock[1]['count'] += 1; }
-                else if ($time24 >= '02:00' && $time24 <= '02:59') { $oclock[2]['count'] += 1; }
-                else if ($time24 >= '03:00' && $time24 <= '03:59') { $oclock[3]['count'] += 1; }
-                else if ($time24 >= '04:00' && $time24 <= '04:59') { $oclock[4]['count'] += 1; }
-                else if ($time24 >= '05:00' && $time24 <= '05:59') { $oclock[5]['count'] += 1; }
-                else if ($time24 >= '06:00' && $time24 <= '06:59') { $oclock[6]['count'] += 1; }
-                else if ($time24 >= '07:00' && $time24 <= '07:59') { $oclock[7]['count'] += 1; }
-                else if ($time24 >= '08:00' && $time24 <= '08:59') { $oclock[8]['count'] += 1; }
-                else if ($time24 >= '09:00' && $time24 <= '09:59') { $oclock[9]['count'] += 1; }
-                else if ($time24 >= '10:00' && $time24 <= '10:59') { $oclock[10]['count'] += 1; }
-                else if ($time24 >= '11:00' && $time24 <= '11:59') { $oclock[11]['count'] += 1; }
-                else if ($time24 >= '12:00' && $time24 <= '12:59') { $oclock[12]['count'] += 1; }
-                else if ($time24 >= '13:00' && $time24 <= '13:59') { $oclock[13]['count'] += 1; }
-                else if ($time24 >= '14:00' && $time24 <= '14:59') { $oclock[14]['count'] += 1; }
-                else if ($time24 >= '15:00' && $time24 <= '15:59') { $oclock[15]['count'] += 1; }
-                else if ($time24 >= '16:00' && $time24 <= '16:59') { $oclock[16]['count'] += 1; }
-                else if ($time24 >= '17:00' && $time24 <= '17:59') { $oclock[17]['count'] += 1; }
-                else if ($time24 >= '18:00' && $time24 <= '18:59') { $oclock[18]['count'] += 1; }
-                else if ($time24 >= '19:00' && $time24 <= '19:59') { $oclock[19]['count'] += 1; }
-                else if ($time24 >= '20:00' && $time24 <= '20:59') { $oclock[20]['count'] += 1; }
-                else if ($time24 >= '21:00' && $time24 <= '21:59') { $oclock[21]['count'] += 1; }
-                else if ($time24 >= '22:00' && $time24 <= '22:59') { $oclock[22]['count'] += 1; }
-                else if ($time24 >= '23:00' && $time24 <= '23:59') { $oclock[23]['count'] += 1; }
-            }
-            else {
+                if ($time24 >= '00:00' && $time24 <= '00:59') {
+                    $oclock[0]['count'] += 1;
+                } else if ($time24 >= '01:00' && $time24 <= '01:59') {
+                    $oclock[1]['count'] += 1;
+                } else if ($time24 >= '02:00' && $time24 <= '02:59') {
+                    $oclock[2]['count'] += 1;
+                } else if ($time24 >= '03:00' && $time24 <= '03:59') {
+                    $oclock[3]['count'] += 1;
+                } else if ($time24 >= '04:00' && $time24 <= '04:59') {
+                    $oclock[4]['count'] += 1;
+                } else if ($time24 >= '05:00' && $time24 <= '05:59') {
+                    $oclock[5]['count'] += 1;
+                } else if ($time24 >= '06:00' && $time24 <= '06:59') {
+                    $oclock[6]['count'] += 1;
+                } else if ($time24 >= '07:00' && $time24 <= '07:59') {
+                    $oclock[7]['count'] += 1;
+                } else if ($time24 >= '08:00' && $time24 <= '08:59') {
+                    $oclock[8]['count'] += 1;
+                } else if ($time24 >= '09:00' && $time24 <= '09:59') {
+                    $oclock[9]['count'] += 1;
+                } else if ($time24 >= '10:00' && $time24 <= '10:59') {
+                    $oclock[10]['count'] += 1;
+                } else if ($time24 >= '11:00' && $time24 <= '11:59') {
+                    $oclock[11]['count'] += 1;
+                } else if ($time24 >= '12:00' && $time24 <= '12:59') {
+                    $oclock[12]['count'] += 1;
+                } else if ($time24 >= '13:00' && $time24 <= '13:59') {
+                    $oclock[13]['count'] += 1;
+                } else if ($time24 >= '14:00' && $time24 <= '14:59') {
+                    $oclock[14]['count'] += 1;
+                } else if ($time24 >= '15:00' && $time24 <= '15:59') {
+                    $oclock[15]['count'] += 1;
+                } else if ($time24 >= '16:00' && $time24 <= '16:59') {
+                    $oclock[16]['count'] += 1;
+                } else if ($time24 >= '17:00' && $time24 <= '17:59') {
+                    $oclock[17]['count'] += 1;
+                } else if ($time24 >= '18:00' && $time24 <= '18:59') {
+                    $oclock[18]['count'] += 1;
+                } else if ($time24 >= '19:00' && $time24 <= '19:59') {
+                    $oclock[19]['count'] += 1;
+                } else if ($time24 >= '20:00' && $time24 <= '20:59') {
+                    $oclock[20]['count'] += 1;
+                } else if ($time24 >= '21:00' && $time24 <= '21:59') {
+                    $oclock[21]['count'] += 1;
+                } else if ($time24 >= '22:00' && $time24 <= '22:59') {
+                    $oclock[22]['count'] += 1;
+                } else if ($time24 >= '23:00' && $time24 <= '23:59') {
+                    $oclock[23]['count'] += 1;
+                }
+            } else {
                 $oclock[24]['label'] = "อื่นๆ";
                 $oclock[24]['count'] += 1;
             }
         }
-        for ($i=0; $i<count($oclock); $i++) { // เก็บ label ชั่วโมง
-            $oclock[$i]['label'] = sprintf("%02d", $i).":00";
+        for ($i = 0; $i < count($oclock); $i++) { // เก็บ label ชั่วโมง
+            $oclock[$i]['label'] = sprintf("%02d", $i) . ":00";
         }
         $oclock[24]['label'] = "อื่นๆ";
         /* [End] Time */
 
         /* [Start] Age */
+        Cache::forget("cached_integration_final_age_{$id_risk_point}");
+
         // Cache::forget("cached_integration_final_age_{$id_risk_point}");
-        $ages = Cache::remember("cached_integration_final_age_{$id_risk_point}", 3600, function () use ($id_risk_point, $case_list) {
+        $ages = Cache::remember("cached_integration_final_age_{$id_risk_point}", 1, function () use ($id_risk_point, $case_list) {
             $integration_final = Integration_final::select(DB::raw('
-                CASE
+            COALESCE(
+            CASE
                     WHEN age >= 0 AND age <= 5 THEN "0-5"
                     WHEN age >= 6 AND age <= 10 THEN "6-10"
                     WHEN age >= 11 AND age <= 15 THEN "11-15"
@@ -118,8 +147,32 @@ class HomeController extends Controller
                     WHEN age >= 91 AND age <= 95 THEN "91-95"
                     WHEN age >= 96 AND age <= 100 THEN "96-100"
                     ELSE "อื่นๆ"
-                END AS label,
-                COUNT(*) AS count
+                END ) AS label,
+                COUNT(*) AS count ,
+                CASE
+                WHEN age >= 0 AND age <= 5 THEN 1
+                WHEN age >= 6 AND age <= 10 THEN 2
+                WHEN age >= 11 AND age <= 15 THEN 3
+                WHEN age >= 16 AND age <= 20 THEN 4
+                WHEN age >= 21 AND age <= 25 THEN 5
+                WHEN age >= 26 AND age <= 30 THEN 6
+                WHEN age >= 31 AND age <= 35 THEN 7
+                WHEN age >= 36 AND age <= 40 THEN 8
+                WHEN age >= 41 AND age <= 45 THEN 9
+                WHEN age >= 46 AND age <= 50 THEN 10
+                WHEN age >= 51 AND age <= 55 THEN 11
+                WHEN age >= 56 AND age <= 60 THEN 12
+                WHEN age >= 61 AND age <= 65 THEN 13
+                WHEN age >= 66 AND age <= 70 THEN 14
+                WHEN age >= 71 AND age <= 75 THEN 15
+                WHEN age >= 76 AND age <= 80 THEN 16
+                WHEN age >= 81 AND age <= 85 THEN 17
+                WHEN age >= 86 AND age <= 90 THEN 18
+                WHEN age >= 91 AND age <= 95 THEN 19
+                WHEN age >= 96 AND age <= 100 THEN 20
+                ELSE 20
+            END AS age_group_order
+
             '));
             if ($id_risk_point) {
                 $integration_final = $integration_final->where(function ($query) use ($case_list) {
@@ -128,7 +181,9 @@ class HomeController extends Controller
                     }
                 });
             }
-            $integration_final = $integration_final->groupBy('label')->get();
+            $integration_final = $integration_final->orderBy('age_group_order')
+                ->groupBy('label', 'age_group_order')
+                ->get();
             return $integration_final;
         });
         /* [End] Age */
@@ -169,8 +224,45 @@ class HomeController extends Controller
             'times' => $oclock,
             'vehicles' => $vehicles,
         ];
+        // dd($id_risk_point);
 
-        return view('risk_point', compact('risk_points' , 'risk_point2', 'integration_finals', 'count', 'id_risk_point'));
+        // หาไฟล์ในสถานที่
+        if ($id_risk_point) {
+
+            $directoryPath = public_path('upload/doc/' . $id_risk_point); // เปลี่ยนเส้นทางไปตามที่คุณเก็บไฟล์
+            if (!file_exists($directoryPath)) {
+                mkdir($directoryPath, 0777, true); // สร้างโฟลเดอร์พร้อมทั้งสิทธิ์การเข้าถึง
+            }
+
+            if (file_exists($directoryPath) && is_dir($directoryPath)) {
+
+
+                $files = File::files($directoryPath);
+
+                $data = [];
+                foreach ($files as $file) {
+                    $filePath = $file->getRealPath();
+                    $fileInfo = pathinfo($filePath);
+                    $extension = strtolower($fileInfo['extension']);
+
+                    if (in_array($extension, ['pdf', 'ppt', 'doc'])) {
+                        $data[] = [
+                            'name' => $fileInfo['basename'],
+                            'type' => $extension,
+                        ];
+                    }
+                }
+            }
+
+
+            //dd($data);
+        } else {
+            //
+            $data = [];
+        }
+
+
+        return view('risk_point', compact('risk_points', 'risk_point2', 'integration_finals', 'count', 'id_risk_point'), ['files' => $data]);
     }
 
     public function integration_final($id)
