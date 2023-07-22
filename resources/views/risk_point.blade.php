@@ -34,6 +34,7 @@
         }
     </style>
 @endsection
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
 @section('content')
     <div class="conatiner-fluid content-inner pb-0">
         <div class="row">
@@ -405,12 +406,27 @@
             $('#datatable').dataTable({
                 "pageLength": 100, // จำนวนข้อมูลต่อหน้า
                 "order": [1, 'DESC'], // เรียง ผู้เสียชีวิต (รวม)
-                "dom": 'rtip', // ซ่อนช่องค้นหา
+                // "dom": 'rtip', // ซ่อนช่องค้นหา
+                "dom": 'Bfrtip',
+                "buttons": [{
+                    "extend": 'excel',
+                    "text": '<i class="fas fa-file-excel"></i> Export Excel',
+                    "className": 'btn btn-info rounded-pill'
+                }],
                 info: false,
                 paging: false, // ซ่อนหน้า
             });
         });
     </script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+
+
 
     <!-- [Start] Time Chart -->
     <script>

@@ -148,7 +148,8 @@ class HomeController extends Controller
                     WHEN age >= 96 AND age <= 100 THEN "96-100"
                     ELSE "อื่นๆ"
                 END ) AS label,
-                COUNT(*) AS count ,
+                COALESCE(COUNT(*), 0) AS count,
+                COALESCE(
                 CASE
                 WHEN age >= 0 AND age <= 5 THEN 1
                 WHEN age >= 6 AND age <= 10 THEN 2
@@ -171,7 +172,7 @@ class HomeController extends Controller
                 WHEN age >= 91 AND age <= 95 THEN 19
                 WHEN age >= 96 AND age <= 100 THEN 20
                 ELSE 20
-            END AS age_group_order
+            END ) AS age_group_order
 
             '));
             if ($id_risk_point) {
