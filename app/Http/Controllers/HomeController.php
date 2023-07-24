@@ -25,20 +25,24 @@ class HomeController extends Controller
         $risk_points = Risk_points::orderBy('total_death', 'DESC')->get();
         $risk_point2 = NULL;
         $case_list = [];
+        $cctvs = [];
         // เก็บค่า case_list ใน Array
         if ($id_risk_point) {
             $search = 1;
             $risk_point2 = Risk_points::findOrFail($id_risk_point);
-            $case_list = explode(",", $risk_point2->case_list);
+            $case_list = array_map('trim', explode(',', $risk_point2->case_list));
+            if ($risk_point2->cctv_id) {
+                $cctvs = array_map('trim', explode(',', $risk_point2->cctv_id));
+            }
         }
         /* รายการแต่ละ Case / Google Map */
-        // Cache::forget("cached_integration_final_{$id_risk_point}");
+        Cache::forget("cached_integration_final_{$id_risk_point}");
         $integration_finals = Cache::remember("cached_integration_final_{$id_risk_point}", 3600, function () use ($id_risk_point, $case_list) {
             $integration_final = new Integration_final;
             if ($id_risk_point) {
                 $integration_final = $integration_final->where(function ($query) use ($case_list) {
                     foreach ($case_list as $key => $value) {
-                        $query->orWhere('DEAD_CONSO_REPORT_ID', trim($value));
+                        $query->orWhere('DEAD_CONSO_REPORT_ID', $value);
                     }
                 });
             }
@@ -47,146 +51,59 @@ class HomeController extends Controller
         });
 
         /* [Start] Time */
-        // $times = Cache::remember("cached_integration_final_time_{$id_risk_point}", 3600, function () {
-        //     return Integration_final::get();
-        // });
-        $times = $integration_finals;
         for ($i = 0; $i <= 24; $i++) { // สร้างตัวแปร Array เก็บค่า ชั่วโมง
-            $oclock[$i]['label'] = '';
-            $oclock[$i]['count'] = 0;
+            $times[$i]['label'] = '';
+            $times[$i]['count'] = 0;
         }
-        foreach ($times as $time) {
-            if ($time->TimeRec != NULL) {
-                $time24 = date('H:i', strtotime($time->TimeRec));
-                if ($time24 >= '00:00' && $time24 <= '00:59') {
-                    $oclock[0]['count'] += 1;
-                } else if ($time24 >= '01:00' && $time24 <= '01:59') {
-                    $oclock[1]['count'] += 1;
-                } else if ($time24 >= '02:00' && $time24 <= '02:59') {
-                    $oclock[2]['count'] += 1;
-                } else if ($time24 >= '03:00' && $time24 <= '03:59') {
-                    $oclock[3]['count'] += 1;
-                } else if ($time24 >= '04:00' && $time24 <= '04:59') {
-                    $oclock[4]['count'] += 1;
-                } else if ($time24 >= '05:00' && $time24 <= '05:59') {
-                    $oclock[5]['count'] += 1;
-                } else if ($time24 >= '06:00' && $time24 <= '06:59') {
-                    $oclock[6]['count'] += 1;
-                } else if ($time24 >= '07:00' && $time24 <= '07:59') {
-                    $oclock[7]['count'] += 1;
-                } else if ($time24 >= '08:00' && $time24 <= '08:59') {
-                    $oclock[8]['count'] += 1;
-                } else if ($time24 >= '09:00' && $time24 <= '09:59') {
-                    $oclock[9]['count'] += 1;
-                } else if ($time24 >= '10:00' && $time24 <= '10:59') {
-                    $oclock[10]['count'] += 1;
-                } else if ($time24 >= '11:00' && $time24 <= '11:59') {
-                    $oclock[11]['count'] += 1;
-                } else if ($time24 >= '12:00' && $time24 <= '12:59') {
-                    $oclock[12]['count'] += 1;
-                } else if ($time24 >= '13:00' && $time24 <= '13:59') {
-                    $oclock[13]['count'] += 1;
-                } else if ($time24 >= '14:00' && $time24 <= '14:59') {
-                    $oclock[14]['count'] += 1;
-                } else if ($time24 >= '15:00' && $time24 <= '15:59') {
-                    $oclock[15]['count'] += 1;
-                } else if ($time24 >= '16:00' && $time24 <= '16:59') {
-                    $oclock[16]['count'] += 1;
-                } else if ($time24 >= '17:00' && $time24 <= '17:59') {
-                    $oclock[17]['count'] += 1;
-                } else if ($time24 >= '18:00' && $time24 <= '18:59') {
-                    $oclock[18]['count'] += 1;
-                } else if ($time24 >= '19:00' && $time24 <= '19:59') {
-                    $oclock[19]['count'] += 1;
-                } else if ($time24 >= '20:00' && $time24 <= '20:59') {
-                    $oclock[20]['count'] += 1;
-                } else if ($time24 >= '21:00' && $time24 <= '21:59') {
-                    $oclock[21]['count'] += 1;
-                } else if ($time24 >= '22:00' && $time24 <= '22:59') {
-                    $oclock[22]['count'] += 1;
-                } else if ($time24 >= '23:00' && $time24 <= '23:59') {
-                    $oclock[23]['count'] += 1;
+        foreach ($integration_finals as $integration_final) {
+            if ($integration_final->TimeRec != NULL) {
+                $time24 = date('H:i', strtotime($integration_final->TimeRec));
+                for ($i = 0; $i <= 23; $i++) { // เก็บ count ชั่วโมง
+                    $time_start = sprintf("%02d", $i) . ':00';
+                    $time_end = sprintf("%02d", $i) . ':50';
+                    if ($time24 >= $time_start && $time24 <= $time_end) {
+                        $times[$i]['count']++;
+                    }
                 }
             } else {
-                $oclock[24]['label'] = "อื่นๆ";
-                $oclock[24]['count'] += 1;
+                $times[24]['count']++;
             }
         }
-        for ($i = 0; $i < count($oclock); $i++) { // เก็บ label ชั่วโมง
-            $oclock[$i]['label'] = sprintf("%02d", $i) . ":00";
+        for ($i = 0; $i < count($times); $i++) { // เก็บ label ชั่วโมง
+            $times[$i]['label'] = sprintf("%02d", $i) . ":00";
         }
-        $oclock[24]['label'] = "อื่นๆ";
+        $times[24]['label'] = "อื่นๆ";
         /* [End] Time */
 
         /* [Start] Age */
-        Cache::forget("cached_integration_final_age_{$id_risk_point}");
-
-        // Cache::forget("cached_integration_final_age_{$id_risk_point}");
-        $ages = Cache::remember("cached_integration_final_age_{$id_risk_point}", 1, function () use ($id_risk_point, $case_list) {
-            $integration_final = Integration_final::select(DB::raw('
-            COALESCE(
-            CASE
-                    WHEN age >= 0 AND age <= 5 THEN "0-5"
-                    WHEN age >= 6 AND age <= 10 THEN "6-10"
-                    WHEN age >= 11 AND age <= 15 THEN "11-15"
-                    WHEN age >= 16 AND age <= 20 THEN "16-20"
-                    WHEN age >= 21 AND age <= 25 THEN "21-25"
-                    WHEN age >= 26 AND age <= 30 THEN "26-30"
-                    WHEN age >= 31 AND age <= 35 THEN "31-35"
-                    WHEN age >= 36 AND age <= 40 THEN "36-40"
-                    WHEN age >= 41 AND age <= 45 THEN "41-45"
-                    WHEN age >= 46 AND age <= 50 THEN "46-50"
-                    WHEN age >= 51 AND age <= 55 THEN "51-55"
-                    WHEN age >= 56 AND age <= 60 THEN "56-60"
-                    WHEN age >= 61 AND age <= 65 THEN "61-65"
-                    WHEN age >= 66 AND age <= 70 THEN "66-70"
-                    WHEN age >= 71 AND age <= 75 THEN "71-75"
-                    WHEN age >= 76 AND age <= 80 THEN "76-80"
-                    WHEN age >= 81 AND age <= 85 THEN "81-85"
-                    WHEN age >= 86 AND age <= 90 THEN "86-90"
-                    WHEN age >= 91 AND age <= 95 THEN "91-95"
-                    WHEN age >= 96 AND age <= 100 THEN "96-100"
-                    ELSE "อื่นๆ"
-                END ) AS label,
-                COALESCE(COUNT(*), 0) AS count,
-                COALESCE(
-                CASE
-                WHEN age >= 0 AND age <= 5 THEN 1
-                WHEN age >= 6 AND age <= 10 THEN 2
-                WHEN age >= 11 AND age <= 15 THEN 3
-                WHEN age >= 16 AND age <= 20 THEN 4
-                WHEN age >= 21 AND age <= 25 THEN 5
-                WHEN age >= 26 AND age <= 30 THEN 6
-                WHEN age >= 31 AND age <= 35 THEN 7
-                WHEN age >= 36 AND age <= 40 THEN 8
-                WHEN age >= 41 AND age <= 45 THEN 9
-                WHEN age >= 46 AND age <= 50 THEN 10
-                WHEN age >= 51 AND age <= 55 THEN 11
-                WHEN age >= 56 AND age <= 60 THEN 12
-                WHEN age >= 61 AND age <= 65 THEN 13
-                WHEN age >= 66 AND age <= 70 THEN 14
-                WHEN age >= 71 AND age <= 75 THEN 15
-                WHEN age >= 76 AND age <= 80 THEN 16
-                WHEN age >= 81 AND age <= 85 THEN 17
-                WHEN age >= 86 AND age <= 90 THEN 18
-                WHEN age >= 91 AND age <= 95 THEN 19
-                WHEN age >= 96 AND age <= 100 THEN 20
-                ELSE 20
-            END ) AS age_group_order
-
-            '));
-            if ($id_risk_point) {
-                $integration_final = $integration_final->where(function ($query) use ($case_list) {
-                    foreach ($case_list as $key => $value) {
-                        $query->orWhere('DEAD_CONSO_REPORT_ID', trim($value));
+        for ($i = 0; $i <= 20; $i++) { // สร้างตัวแปร Array เก็บค่า อายุ
+            $ages[$i]['label'] = '';
+            $ages[$i]['count'] = 0;
+        }
+        foreach ($integration_finals as $integration_final) {
+            if ($integration_final->Age != NULL) {
+                $age = $integration_final->Age;
+                $ii = 1; // เอาไว้กำหนดตัวนับเพิ่มทีละ 5
+                for ($i = 0; $i <= 19; $i++) { // เก็บ count อายุ
+                    $age_start = $ii;
+                    $age_end = $ii + 4;
+                    if ($age >= $age_start && $age <= $age_end) {
+                        $ages[$i]['count']++;
                     }
-                });
+                    $ii += 5;
+                }
+            } else {
+                $ages[20]['count']++;
             }
-            $integration_final = $integration_final->orderBy('age_group_order')
-                ->groupBy('label', 'age_group_order')
-                ->get();
-            return $integration_final;
-        });
+        }
+        $ii = 1; // เอาไว้กำหนดตัวนับเพิ่มทีละ 5
+        for ($i = 0; $i < count($ages); $i++) { // เก็บ label อายุ
+            $age_start = $ii;
+            $age_end = $ii + 4;
+            $ages[$i]['label'] = $age_start . '-' . $age_end;
+            $ii += 5;
+        }
+        $ages[20]['label'] = "อื่นๆ";
         /* [End] Age */
 
         /* [Start] Vehicle */
@@ -210,7 +127,7 @@ class HomeController extends Controller
             if ($id_risk_point) {
                 $integration_final = $integration_final->where(function ($query) use ($case_list) {
                     foreach ($case_list as $key => $value) {
-                        $query->orWhere('DEAD_CONSO_REPORT_ID', trim($value));
+                        $query->orWhere('DEAD_CONSO_REPORT_ID', $value);
                     }
                 });
             }
@@ -222,7 +139,7 @@ class HomeController extends Controller
         /* เก็บข้อมูลใส่ตัวแปร count */
         $count = [
             'ages' => $ages,
-            'times' => $oclock,
+            'times' => $times,
             'vehicles' => $vehicles,
         ];
         // dd($id_risk_point);
@@ -237,7 +154,6 @@ class HomeController extends Controller
 
             if (file_exists($directoryPath) && is_dir($directoryPath)) {
 
-
                 $files = File::files($directoryPath);
 
                 $data = [];
@@ -246,24 +162,21 @@ class HomeController extends Controller
                     $fileInfo = pathinfo($filePath);
                     $extension = strtolower($fileInfo['extension']);
 
-                    if (in_array($extension, ['pdf', 'ppt', 'doc'])) {
+                    // if (in_array($extension, ['pdf', 'ppt', 'doc'])) {
                         $data[] = [
                             'name' => $fileInfo['basename'],
                             'type' => $extension,
                         ];
-                    }
+                    // }
                 }
             }
-
-
             //dd($data);
         } else {
             //
             $data = [];
         }
 
-
-        return view('risk_point', compact('risk_points', 'risk_point2', 'integration_finals', 'count', 'id_risk_point'), ['files' => $data]);
+        return view('risk_point', compact('risk_points', 'risk_point2', 'integration_finals', 'count', 'id_risk_point', 'cctvs'), ['files' => $data]);
     }
 
     public function integration_final($id)
