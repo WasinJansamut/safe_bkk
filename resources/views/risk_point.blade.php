@@ -8,8 +8,8 @@
         }
 
         .book {
-            width: 200px;
-            height: 250px;
+            width: 100px;
+            height: 120px;
             /* border: 2px dotted #3A57E8; */
             color: #000000;
             display: flex;
@@ -294,23 +294,24 @@
                 <!-- [End] รายการแต่ละ Case -->
 
                 <!-- [Start] ไฟล์ -->
-                @if ($files)
-                    <div class="col-12" id="div_file">
-                        <div class="card" data-aos="fade-up" data-aos-delay="600">
-                            <div class="card-header d-flex justify-content-between flex-wrap">
-                                <div class="header-title">
-                                    <h4 class="card-title">
-                                        <i class="fas fa-book me-1"></i>
-                                        ไฟล์
-                                    </h4>
-                                </div>
+                <div class="col-9" id="div_file">
+                    <div class="card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="card-header d-flex justify-content-between flex-wrap">
+                            <div class="header-title">
+                                <h4 class="card-title">
+                                    <i class="fas fa-book me-1"></i>
+                                    สื่อ, VDO
+                                </h4>
                             </div>
-                            <div class="card-body">
+                        </div>
+                        <div class="card-body">
+                            @if ($files)
                                 <div class="bookshelf" id="bookshelf">
                                     @foreach ($files as $file)
                                         <a href="{{ asset("upload/doc/{$risk_point2->id}/{$file['name']}") }}"
                                             target="_blank">
-                                            <div class="credit-card-widget custom-card-width" style="width: 290px;">
+                                            <div class="credit-card-widget custom-card-width"
+                                                style="width: 210px; padding: 5px; ">
                                                 <div class="pb-4 border-0 card-header">
                                                     <div class="p-4 border border-white rounded primary-gradient-card">
                                                         <div class="book">
@@ -349,50 +350,70 @@
                                         </a>
                                     @endforeach
                                 </div>
-                            </div>
+                            @else
+                                ไม่พบข้อมูล
+                            @endif
                         </div>
                     </div>
-                @endif
+                </div>
                 <!-- [End] ไฟล์ -->
 
                 <!-- [Start] กล้องวงจรปิด -->
-                @if ($cctvs)
-                    <div class="col-12">
-                        <div class="card" data-aos="fade-up" data-aos-delay="600">
-                            <div class="card-header d-flex justify-content-between flex-wrap">
-                                <div class="header-title">
-                                    <h4 class="card-title">
-                                        <i class="fas fa-video me-1"></i>
-                                        กล้องวงจรปิด
-                                    </h4>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="bookshelf" id="bookshelf">
-                                    @foreach ($cctvs as $cctv)
-                                        <a href="http://www.bmatraffic.com/PlayVideo.aspx?ID={{ $cctv }}"
-                                            target="_blank">
-                                            <div class="credit-card-widget custom-card-width" style="width: 290px;">
-                                                <div class="pb-4 border-0 card-header">
-                                                    <div class="p-4 border border-white rounded primary-gradient-card">
-                                                        <div class="book">
-                                                            <img src="{{ asset('images/cctv.png') }}" alt="CCTV">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-body">
-                                                    <p class="text-primary text-center">จุดที่ {{ $cctv }}</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                </div>
+                <div class="col-3">
+                    <div class="card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="card-header d-flex justify-content-between flex-wrap">
+                            <div class="header-title">
+                                <h4 class="card-title">
+                                    <i class="fas fa-video me-1"></i>
+                                    กล้องวงจรปิด กทม. Realtime
+                                </h4>
                             </div>
                         </div>
+                        <div class="card-body">
+                            @if ($cctvs)
+                                <ul>
+                                    @foreach ($cctvs as $cctv)
+                                        <li>
+                                            <a href="http://www.bmatraffic.com/PlayVideo.aspx?ID={{ $cctv[0] }}"
+                                                target="_blank">
+                                                {{-- <img src="{{ asset('images/cctv.png') }}" class="me-1" width="24">
+                                                    {{ $cctv[1] }} --}}
+                                                {{ $cctv[1] }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                ไม่พบข้อมูล
+                            @endif
+                        </div>
                     </div>
-                @endif
+                </div>
                 <!-- [End] กล้องวงจรปิด -->
             @endif
+
+            <!-- [Start] Facebook Comment -->
+            <div class="col-12">
+                <div class="card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card-header d-flex justify-content-between flex-wrap">
+                        <div class="header-title">
+                            <h4 class="card-title">
+                                <i class="fab fa-facebook-square"></i>
+                                Facebook Comment
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <meta property="fb:app_id" content="805417391080641" />
+                        <div id="fb-root"></div>
+                        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v17.0"
+                            nonce="QL47gskZ"></script>
+                        <div class="fb-comments" data-href="https://rti.moph.go.th/bkk/public/index.php/"
+                            data-width="100%" data-numposts="5" data-order-by="reverse_time"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- [End] Facebook Comment -->
         </div>
     @endsection
 

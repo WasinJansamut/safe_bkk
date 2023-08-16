@@ -32,7 +32,7 @@ class HomeController extends Controller
             $risk_point2 = Risk_points::findOrFail($id_risk_point);
             $case_list = array_map('trim', explode(',', $risk_point2->case_list));
             if ($risk_point2->cctv_id) {
-                $cctvs = array_map('trim', explode(',', $risk_point2->cctv_id));
+                $cctvs = json_decode(str_replace("'", "\"", $risk_point2->cctv_id), true);
             }
         }
         /* รายการแต่ละ Case / Google Map */
