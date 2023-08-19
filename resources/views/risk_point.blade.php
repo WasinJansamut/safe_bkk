@@ -408,7 +408,7 @@
                         <div id="fb-root"></div>
                         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v17.0"
                             nonce="QL47gskZ"></script>
-                        <div class="fb-comments" data-href="https://rti.moph.go.th/bkk/public/index.php/"
+                        <div class="fb-comments" data-href="{{(url()->full())}}"
                             data-width="100%" data-numposts="5" data-order-by="reverse_time"></div>
                     </div>
                 </div>
