@@ -269,8 +269,40 @@
                                                         {{ date('d/m/Y', strtotime($integration_final->DateRec)) ?? '' }}
                                                     @endif
                                                 </td>
-                                                <td class="text-dark">
+                                                @php
+                                                    $timeRec = strtotime($integration_final->TimeRec);
+                                                    $timeOfDay = '';
+
+                                                    if ($timeRec >= strtotime('05:00:00') && $timeRec < strtotime('12:00:00')) {
+                                                        $timeOfDay = 'เช้า';
+                                                        $colorClass = '#87CEFA;';
+                                                        $text_color = 'text-dark';
+                                                    } elseif ($timeRec >= strtotime('12:00:00') && $timeRec < strtotime('17:00:00')) {
+                                                        $timeOfDay = 'กลางวัน';
+                                                        $colorClass = '#00BFFF;';
+                                                        $text_color = 'text-dark';
+                                                    } elseif ($timeRec >= strtotime('17:00:00') && $timeRec < strtotime('19:00:00')) {
+                                                        $timeOfDay = 'เย็น';
+                                                        $colorClass = '#1E90FF;';
+                                                        $text_color = 'text-dark';
+                                                    } elseif ($timeRec >= strtotime('19:00:00') && $timeRec < strtotime('23:59:59')) {
+                                                        $timeOfDay = 'หัวค่ำ';
+                                                        $colorClass = '#4169E1;';
+                                                        $text_color = 'text-white';
+                                                    } elseif ($timeRec >= strtotime('00:00:00') && $timeRec < strtotime('04:59:59')) {
+                                                        $timeOfDay = 'กลางคืน';
+                                                        $colorClass = '#0000FF;';
+                                                        $text_color = 'text-white';
+                                                    } else {
+                                                        $timeOfDay = 'กลางคืน';
+                                                        $colorClass = '#FFFFFF;';
+                                                        $text_color = 'text-dark';
+                                                    }
+                                                @endphp
+                                                <td class="{{ $text_color ?? '' }}" style="background-color: {{ $colorClass ?? '' }}">
                                                     @if ($integration_final->TimeRec)
+                                                        <span class="{{ $colorClass }}">{{ $timeOfDay }}</span> /
+
                                                         {{ date('H:i', strtotime($integration_final->TimeRec)) ?? '' }} น.
                                                     @endif
                                                 </td>
@@ -408,7 +440,7 @@
                         <div id="fb-root"></div>
                         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v17.0"
                             nonce="QL47gskZ"></script>
-                        <div class="fb-comments" data-href="{{(url()->full())}}"
+                        <div class="fb-comments" data-href="{{ url()->full() }}"
                             data-width="100%" data-numposts="5" data-order-by="reverse_time"></div>
                     </div>
                 </div>
@@ -814,8 +846,7 @@
 
         <!-- [Start] Google Map -->
         <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap&avoid=tolls">
-        </script>
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap&avoid=tolls"></script>
         <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
         <script>
             initMap();
