@@ -272,7 +272,7 @@
                                                 @php
                                                     $timeRec = strtotime($integration_final->TimeRec);
                                                     $timeOfDay = '';
-
+                                                    
                                                     if ($timeRec >= strtotime('05:00:00') && $timeRec < strtotime('12:00:00')) {
                                                         $timeOfDay = 'เช้า';
                                                         $colorClass = '#87CEFA;';
@@ -299,7 +299,8 @@
                                                         $text_color = 'text-dark';
                                                     }
                                                 @endphp
-                                                <td class="{{ $text_color ?? '' }}" style="background-color: {{ $colorClass ?? '' }}">
+                                                <td class="{{ $text_color ?? '' }}"
+                                                    style="background-color: {{ $colorClass ?? '' }}">
                                                     @if ($integration_final->TimeRec)
                                                         <span class="{{ $colorClass }}">{{ $timeOfDay }}</span> /
 
@@ -410,7 +411,7 @@
                                                 target="_blank">
                                                 {{-- <img src="{{ asset('images/cctv.png') }}" class="me-1" width="24">
                                                     {{ $cctv[1] }} --}}
-                                                {{ $cctv[1] }}
+                                                {{ $cctv[1] }} ({{ $cctv[0] }})
                                             </a>
                                         </li>
                                     @endforeach
@@ -440,8 +441,8 @@
                         <div id="fb-root"></div>
                         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v17.0"
                             nonce="QL47gskZ"></script>
-                        <div class="fb-comments" data-href="{{ url()->full() }}"
-                            data-width="100%" data-numposts="5" data-order-by="reverse_time"></div>
+                        <div class="fb-comments" data-href="{{ url()->full() }}" data-width="100%" data-numposts="5"
+                            data-order-by="reverse_time"></div>
                     </div>
                 </div>
             </div>
@@ -846,7 +847,8 @@
 
         <!-- [Start] Google Map -->
         <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap&avoid=tolls"></script>
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnpQL8i0_e09BgynT5s0PAhlYxM1G5Wrw&callback=initMap&avoid=tolls">
+        </script>
         <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
         <script>
             initMap();
