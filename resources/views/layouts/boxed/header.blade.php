@@ -25,7 +25,7 @@
                     <li class="nav-item me-1">
                         <a class="nav-link @if (Request::is('risk_point*')) active @endif"
                             href="{{ route('risk_point') }}">
-                            จุดเสี่ยง
+                            ผลวิเคราะห์ความสัมพันธ์เชิงพื้นที่ระหว่างลักษณะเมืองและการเกิดอุบัติเหตุในพื้นที่เสี่ยง
                         </a>
                     </li>
                     <li class="nav-item me-1">

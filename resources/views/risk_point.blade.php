@@ -170,7 +170,32 @@
 
             <!-- [Start] บทวิเคราะห์ -->
             @if ($risk_point2)
-                <div class="col-12">
+                @if ($risk_point2->youtube_url)
+                    <div class="col-sm-12 col-md-6">
+                        <div class="card" data-aos="fade-up" data-aos-delay="600">
+                            <div class="card-header">
+                                <div class="header-title">
+                                    <h4 class="card-title">
+                                        <i class="fa-brands fa-youtube me-1"></i>
+                                        ยูทูป
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                @php
+                                    $parsed_url = parse_url($risk_point2->youtube_url);
+                                    parse_str($parsed_url['query'], $query); // แยกค่าพารามิเตอร์ของ URL
+                                @endphp
+                                <iframe width="100%" height="465"
+                                    src="https://www.youtube.com/embed/{{ $query['v'] }}" frameborder="0"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="col-sm-12 @if ($risk_point2->youtube_url) col-md-6 @endif">
                     <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-header">
                             <div class="header-title">
@@ -512,10 +537,21 @@
                     // "dom": 'rtip', // ซ่อนช่องค้นหา
                     "dom": 'Bfrtip',
                     "buttons": [{
-                        "extend": 'excel',
-                        "text": '<i class="fas fa-file-excel"></i> Export Excel',
-                        "className": 'btn btn-info rounded-pill'
-                    }],
+                            "extend": 'excel',
+                            "text": '<i class="fa-solid fa-file-pdf"></i> รายงานผลงานวิจัย มุ่งเป้าลดตายและบาดเจ็บ สาหัสของผู้ใช้ มอเตอร์ไซค์ในเมืองหลวง',
+                            "className": 'btn rounded-pill',
+                            "action": function(e, dt, button, config) {
+                                window.open(
+                                    "{{ asset('assets/file/pdf/(ร่าง) เล่มฉบับสมบูรณ์ FINAL 27-08-2023 (1350).pdf') }}",
+                                    '_blank');
+                            }
+                        },
+                        {
+                            "extend": 'excel',
+                            "text": '<i class="fas fa-file-excel"></i> Export Excel',
+                            "className": 'btn rounded-pill'
+                        }
+                    ],
                     info: false,
                     paging: false, // ซ่อนหน้า
                 });
