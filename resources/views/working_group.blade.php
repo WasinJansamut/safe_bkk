@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="header-title">
+                        <div class="header-title text-center">
                             <h3 class="card-title">รายงานผลงานวิจัย</h3>
                             <p>มุ่งเป้าลดตายและบาดเจ็บ สาหัสของผู้ใช้ มอเตอร์ไซค์ในเมืองหลวง</p>
                         </div>
@@ -183,9 +183,9 @@
                             <li><strong>คณะวิศวกรรมศาสตร์ มหาวิทยาลัยภาคตะวันออกเฉียงเหนือ</strong></li>
                         </ul>
                         <a href="https://dip.ddc.moph.go.th/rtddi/public/"> <img class="refImage"
-                                src="{{ url('/images/logo/rtddi.png') }}" alt=""> </a>
+                                src="{{ asset('/images/logo/rtddi.png') }}" alt=""> </a>
                         <a href="https://ddc.moph.go.th/iudc/"> <img class="refImage"
-                                src="{{ url('/images/logo/iudc.png') }}" alt=""> </a>
+                                src="{{ asset('/images/logo/iudc.png') }}" alt=""> </a>
                         <a href="https://www.thairsc.com/"> <img class="refImage"
                                 src="https://www.thairsc.com/img/logo_THAIRSC.67d70ccf.png" alt=""> </a>
                         <a href="https://www.royalthaipolice.go.th/"> <img class="refImage"
@@ -197,7 +197,7 @@
                                 src="https://iticfoundation.org/wp-content/uploads/2020/12/thaitraffic3_logo.png"
                                 alt=""> </a>
                         <a href="https://www.thairap.org/"> <img class="refImage"
-                                src="{{ url('/images/logo/thairap.webp') }}" alt=""> </a>
+                                src="{{ asset('/images/logo/thairap.webp') }}" alt=""> </a>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 @extends('layouts.boxed.app')
-@section('page_title', 'จุดเสียง')
+@section('page_title', 'ผลวิเคราะห์ความสัมพันธ์เชิงพื้นที่ระหว่างลักษณะเมืองและการเกิดอุบัติเหตุในพื้นที่เสี่ยง')
 @section('style')
     <style>
         .bookshelf {
@@ -27,7 +27,7 @@
         }
     </style>
 @endsection
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
+<link rel="stylesheet" href="{{ asset('assets/datatables/buttons/2.4.1/css/buttons.dataTables.min.css') }}" />
 @section('content')
     <div class="conatiner-fluid content-inner pb-0">
         <div class="row">
@@ -168,8 +168,8 @@
             </div>
             <!-- [End] Vehicle Chart -->
 
-            <!-- [Start] บทวิเคราะห์ -->
             @if ($risk_point2)
+                <!-- [Start] จุดเสี่ยง -->
                 @if ($risk_point2->youtube_url)
                     <div class="col-sm-12 col-md-6">
                         <div class="card" data-aos="fade-up" data-aos-delay="600">
@@ -177,7 +177,7 @@
                                 <div class="header-title">
                                     <h4 class="card-title">
                                         <i class="fa-brands fa-youtube me-1"></i>
-                                        ยูทูป
+                                        จุดเสี่ยง {{ $risk_point2->remark ?? '' }}
                                     </h4>
                                 </div>
                             </div>
@@ -194,7 +194,9 @@
                         </div>
                     </div>
                 @endif
+                <!-- [End] จุดเสี่ยง -->
 
+                <!-- [Start] บทวิเคราะห์ -->
                 <div class="col-sm-12 @if ($risk_point2->youtube_url) col-md-6 @endif">
                     <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="card-header">
@@ -213,8 +215,8 @@
                         </div>
                     </div>
                 </div>
+                <!-- [End] บทวิเคราะห์ -->
             @endif
-            <!-- [End] บทวิเคราะห์ -->
 
             <!-- [Start] Google Map  -->
             <div class="col-sm-12 @if ($risk_point2) col-md-6 @endif">
@@ -539,7 +541,7 @@
                     "buttons": [{
                             "extend": 'excel',
                             "text": '<i class="fa-solid fa-file-pdf"></i> รายงานผลงานวิจัย มุ่งเป้าลดตายและบาดเจ็บ สาหัสของผู้ใช้ มอเตอร์ไซค์ในเมืองหลวง',
-                            "className": 'btn rounded-pill',
+                            "className": 'btn btn-success rounded-pill',
                             "action": function(e, dt, button, config) {
                                 window.open(
                                     "{{ asset('assets/file/pdf/(ร่าง) เล่มฉบับสมบูรณ์ FINAL 27-08-2023 (1350).pdf') }}",
@@ -549,7 +551,8 @@
                         {
                             "extend": 'excel',
                             "text": '<i class="fas fa-file-excel"></i> Export Excel',
-                            "className": 'btn rounded-pill'
+                            "className": 'btn btn-primary rounded-pill',
+
                         }
                     ],
                     info: false,
@@ -557,12 +560,12 @@
                 });
             });
         </script>
-        <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="{{ asset('assets/datatables/buttons/2.4.1/js/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('assets/datatables/buttons/2.4.1/js/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('assets/datatables/buttons/2.4.1/js/buttons.print.min.js') }}"></script>
+        <script src="{{ asset('assets/datatables/jszip/3.10.1/jszip.min.js') }}"></script>
+        <script src="{{ asset('assets/datatables/pdfmake/0.1.53/pdfmake.min.js') }}"></script>
+        <script src="{{ asset('assets/datatables/pdfmake/0.1.53/vfs_fonts.js') }}"></script>
 
         <!-- [Start] Time Chart -->
         <script>
